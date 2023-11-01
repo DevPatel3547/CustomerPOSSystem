@@ -1,51 +1,74 @@
-/* src/components/HomePage.css */
+/* src/components/customer.css */
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+      transform: translateY(20px);
+  }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
+@keyframes liftUp {
+  from {
+      box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.1);
+  }
+  to {
+      box-shadow: 0px 5px 30px rgba(0, 0, 0, 0.2);
+  }
+}
+
+
+
 .customer-container {
-     position: absolute;
-    top: 0;
-    background-color: #ffffff;
-    padding: 40px 60px;
-    border-radius: 15px;
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.08);
-  }
-  
-  h1 {
-    font-weight: 600;
-    font-size: 2.5rem;
-    color: #2c3e50;
-    margin-bottom: 20px;
-    padding: 20px 10px;
-    border:none;
-    
-  }
-  
-  .user-selection {
-    margin-top: 30px;
-    background-color: #c8c3a2;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 9px;
-  }
-  
-  .user-selection p {
-    font-weight: 400;
-    font-size: 1.2rem;
-    margin-bottom: 20px;
-    color: #161919;
-  }
-  
-  .user-selection button {
-    margin: 0 10px 10px 0;
-    padding: 10px 20px;
-    font-size: 1rem;
-    border: none;
-    background-color: #34dbc2;
-    color: #ffffff;
-    border-radius: 8px;
-    transition: background-color 0.3s ease;
-    cursor: pointer;
-    font-weight: 600;
-  }
-  
-  .user-selection button:hover {
-    background-color: #89ece9;
-  }
+   background-color: #003366;
+  padding: 100px 150px;
+  border-radius: 25px;
+  box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.1);
+  max-width: 90vw;
+  margin: 5% auto;
+  animation: fadeIn 0.7s forwards;
+}
+
+h1 {
+  font-weight: 700;
+  font-size: 3.5rem;
+  color: #ffffff;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.user-selection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.user-selection p {
+  font-size: 1.5rem;
+  margin-bottom: 30px;
+  color: #ffffff;
+  text-align: center;
+}
+
+.user-selection button {
+  margin-bottom: 20px;
+  padding: 15px 30px;
+  font-size: 1.2rem;
+  border: none;
+  background-color: #e6eef8;
+  color: #003366;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  width: 220px;
+  text-align: center;
+  transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.user-selection button:hover {
+  transform: scale(1.05) translateY(-5px); /* Adding vertical movement */
+  background-color: #c7d1e2;
+  box-shadow: 0px 5px 30px rgba(0, 0, 0, 0.2); /* Shadow gives the lift effect */
+}
