@@ -5,12 +5,15 @@ import './customer.css';
 const customerPage = () => {
   return (
     <div className="customer-container">
-      <h1>Menu</h1>
-      <div className="user-selection">
-        <p>tabs to plan out</p>
-        <button>Order Drink</button>
-        <button>Customize Drink</button>
-        <button>View Cart</button>
+      <h1>Welcome to the Alley!</h1>
+      <div className="button-selection">
+        <button>Favorite Drinks</button>
+        <button>Fan Favorite</button>
+        <button>Try our Seasonal Item</button>
+      </div>
+      <h1>Favorite Toppings</h1>
+      <div className="button-selection">
+      <button>Customize Drink</button>
       </div>
     </div>
   );
