@@ -6,3 +6,8 @@ Project 3 by team 910_10b
 To run the backend open the api folder and type "npm start" in terminal
 Look at different routes inside backend by seeing the app.js file and there is a section of code with comments around it
     Example: "app.use('/testAPI', testAPIRouter);" means that localhost:9000/testAPI exists
+
+Things to download for backend (download in the api folder):
+    npm install express --save
+    npm install pg --save
+    npm install dotenv --save
