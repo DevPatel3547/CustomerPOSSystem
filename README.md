@@ -6,3 +6,6 @@ Project 3 by team 910_10b
 To run the backend open the api folder and type "npm start" in terminal
 Look at different routes inside backend by seeing the app.js file and there is a section of code with comments around it
     Example: "app.use('/testAPI', testAPIRouter);" means that localhost:9000/testAPI exists
+
+    Run npm install react-modal
+    npm install react-tsparticles
