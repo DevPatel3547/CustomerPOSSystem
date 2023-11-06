@@ -28,7 +28,7 @@ router.get('/:tableName', function(req, res, next) {
                 output.push(query_res.rows[i]);
             }
             // console.log(output);
-            res.send(output);
+            res.json(output);
         });
 });
 

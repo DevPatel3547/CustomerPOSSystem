@@ -7,12 +7,11 @@ To run the backend open the api folder and type "npm start" in terminal
 Look at different routes inside backend by seeing the app.js file and there is a section of code with comments around it
     Example: "app.use('/testAPI', testAPIRouter);" means that localhost:9000/testAPI exists
 
-<<<<<<< HEAD
     Run npm install react-modal
     npm install react-tsparticles
-=======
+
 Things to download for backend (download in the api folder):
+    BEFORE DOING THIS JUST TRY TO RUN BECAUSE THEY SHOULD ALREADY BE DOWNLOADED IN THE NODE_MODULES FOLDER
     npm install express --save
     npm install pg --save
     npm install dotenv --save
->>>>>>> 84f4ec686275647e7db43fb241738deda0d7e9d3
