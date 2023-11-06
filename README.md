@@ -10,9 +10,11 @@ Look at different routes inside backend by seeing the app.js file and there is a
 <<<<<<< HEAD
     Run npm install react-modal
     npm install react-tsparticles
+    npm install react-bootstrap bootstrap@5.1.3 react-awesome-reveal
 =======
 Things to download for backend (download in the api folder):
     npm install express --save
     npm install pg --save
     npm install dotenv --save
+
 >>>>>>> 84f4ec686275647e7db43fb241738deda0d7e9d3
