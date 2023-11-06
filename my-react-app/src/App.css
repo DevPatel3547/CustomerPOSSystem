@@ -28,13 +28,12 @@ body {
 
 
 .App {
-  align-items: center;
-  display: flex;
-  height: 100vh;
-  justify-content: center;
+  text-align: center;
   width: 100vw;
   transition: background-color 0.5s;
 }
+/* You may remove the height: 100vh if it's causing issues */
+
 
 .App-header {
   background-color: #282c34;

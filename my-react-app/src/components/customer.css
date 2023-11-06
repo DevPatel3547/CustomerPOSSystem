@@ -1,4 +1,4 @@
-/* src/components/customer.css */
+
 @keyframes fadeIn {
   from {
       opacity: 0;
@@ -23,10 +23,10 @@
 
 .customer-container {
   
-  background-image: url('pexels-tbee-82256.jpg'), /* Top image */
+  background-image: url('pexels-tbee-82256.jpg'), 
   url('istockphoto-1177450328-612x612.jpg'); 
-  background-size: cover; /* This applies to both images */
-  background-position: center; /* This centers both images */
+  background-size: cover; 
+  background-position: center; 
   background-repeat: no-repeat;
   padding: 100px 150px;
   border-radius: 25px;
@@ -121,7 +121,7 @@ h1 {
 }
 
 .button-selection-second button {
-  flex:0;/* This will prevent the button from growing */
+  flex:0;
   margin-bottom: 20px;
   padding: 15px 30px;
   font-size: 1.2rem;
@@ -141,9 +141,9 @@ h1 {
 
 
 .button-selection-second button:hover {
-  transform: scale(1.05) translateY(-5px); /* Adding vertical movement */
+  transform: scale(1.05) translateY(-5px);
   background-color: #c7d1e2ed;
-  box-shadow: 0px 5px 30px rgba(0, 0, 0, 0.2); /* Shadow gives the lift effect */
+  box-shadow: 0px 5px 30px rgba(0, 0, 0, 0.2); 
 }
 .Modal {
   position: absolute;

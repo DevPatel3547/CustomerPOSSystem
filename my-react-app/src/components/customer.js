@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import Modal from 'react-modal';
 import './customer.css';
 import Particles from 'react-tsparticles';
+
 const particlesOptions = {
   particles: {
     number: {
