@@ -1,10 +1,14 @@
 // src/components/HomePage.js
 import React, { useState } from 'react';
 import Modal from 'react-modal';
+import { useNavigate } from 'react-router-dom';
 import './customer.css';
 import Particles from 'react-tsparticles';
 
+
 const particlesOptions = {
+
+
   particles: {
     number: {
       value: 80,
@@ -72,6 +76,7 @@ const particlesOptions = {
 };
 
 const CustomerPage = () => {
+  let navigate = useNavigate();
   const [modalIsOpen, setModalIsOpen] = useState(false); // State to manage modal visibility
 
   const openModal = () => {
@@ -92,8 +97,8 @@ const CustomerPage = () => {
       e.preventDefault();
       window.location.href='https://www.google.com/maps/dir//The+Alley,+23220+Grand+Cir+Blvd+Ste+130,+Katy,+TX+77449/@29.7884538,-95.8549678,12z/data=!4m8!4m7!1m0!1m5!1m1!1s0x864127881412378f:0x207b18bb4c6f0802!2m2!1d-95.7725655!2d29.7883304?entry=ttu';
       }}> Find a location near you!</button>
-        <button onClick={openModal}>Look at our delicious drinks!</button>
-        <button>Try our Seasonal Item</button>
+        <button onClick={() => navigate('/')}>Look at our delicious drinks!</button>
+        <button onClick={() => navigate('/menu')}>Try our Seasonal Item</button>
       </div>
       <h1>Favorite Toppings</h1>
       <div className="button-selection-second">
