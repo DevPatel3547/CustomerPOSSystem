@@ -17,14 +17,13 @@
     "react-bootstrap": "^2.9.1",
     "react-dom": "^18.2.0",
     "react-modal": "^3.16.1",
+    "react-model": "^4.3.1",
     "react-router-dom": "^6.18.0",
+    "react-scale-text": "^1.2.2",
     "react-scripts": "^5.0.1",
-<<<<<<< HEAD
-    "react-tsparticles": "^2.12.2",
-=======
     "react-transition-group": "^4.4.5",
+    "react-tsparticles": "^2.12.2",
     "styled-components": "^6.1.0",
->>>>>>> 84f4ec686275647e7db43fb241738deda0d7e9d3
     "web-vitals": "^2.1.4"
   },
   "scripts": {

@@ -22,55 +22,87 @@
 
 
 .customer-container {
-  
-  background-image: url('pexels-tbee-82256.jpg'), /* Top image */
-  url('istockphoto-1177450328-612x612.jpg'); 
-  background-size: cover; /* This applies to both images */
-  background-position: center; /* This centers both images */
+  background-image: url('pexels-tbee-82256.jpg'); 
+  background-size: cover; 
+  background-position: center; 
   background-repeat: no-repeat;
   padding: 100px 150px;
-  border-radius: 25px;
   box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.1);
-  max-width: 90vw;
-  margin: 5% auto;
   animation: fadeIn 0.7s forwards;
   align-items: vertical;
+  overflow:auto;
+  margin-top: 0; /* Ensure no large margin at the top */ 
+  width:100%;
+  height:100%;
+  
 }
+.backButton button{
+  color: #003366;
+  font-size: 1.3rem;
+  border: none;
+  border-radius: 50%;
+  border: 2px solid #000;
+  border-radius: 50%;
+  border-color: #1b1919;
+  background-color: rgb(178, 184, 157);
+  border-width:2px;
+  cursor: pointer;
+  font-weight: 600;
+  text-align: center;
+  transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease; 
+  align-items:left;
+  position:fixed;
+  top:0;
+  left:0;
+  justify-content: center; 
+}
+
+.backButton button:hover {
+  transform: scale(1.05) translateY(-5px);
+  background-color: #c7d1e2ed;
+  box-shadow: 0px 5px 30px rgba(0, 0, 0, 0.2);
+}
+.customer-container .topImgDisplay{
+  background-image: url(logo.png);
+  background-size: cover; 
+  background-position: center;
+  background-repeat: no-repeat; 
+  flex:1;
+  height:200px;
+  width:400px;
+  margin: 0 auto;
+ 
+  
+
+}
+
 
 h1 {
   font-weight: 700;
   font-size: 3.5rem;
-  color: #1d1c1c;
+  color: #003366;
   margin-bottom: 40px;
-  text-align: Left;
+  text-align: center;
+  border:2px groove #6b6b6b;
+  margin: 0 200px;
   
   
 }
 
 .button-selection {
-  /* background-image:url(c:\Users\jdpay\Downloads\pexels-tbee-82256.jpg); */
+  
   background-size: cover; /* This makes sure the image covers the entire element */
   background-position: center; /* This centers the image */
   display: flex;
   flex-direction: row;
   align-items: center;
-  
-
 }
 
-.button-selection p {
-  font-size: 1.5rem;
-  margin-bottom: 30px;
-  color: #ffffff;
-  text-align: center;
-  
-}
 
 .button-selection button {
   margin-bottom: 20px;
   padding: 15px 30px;
   font-size: 1.2rem;
-  border: none;
   background-color: rgb(178, 184, 157);
   color: #003366;
   border-radius: 50%;
@@ -78,73 +110,63 @@ h1 {
   border-radius: 25px;
   border-color: #003366;
   border-width:4px;
-
   cursor: pointer;
   font-weight: 600;
   width: 220px;
   height: 120px;
   text-align: center;
   transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
-  margin-right: 105px;
-  margin-left: 105px;
+ 
 }
 
 
 .button-selection button:hover {
-  transform: scale(1.05) translateY(-5px); /* Adding vertical movement */
+  transform: scale(1.05) translateY(-5px);
   background-color: #c7d1e2ed;
-  box-shadow: 0px 5px 30px rgba(0, 0, 0, 0.2); /* Shadow gives the lift effect */
+  box-shadow: 0px 5px 30px rgba(0, 0, 0, 0.2);
 }
 
 .button-selection-second {
   display: flex;
-  flex-direction: row; /* Adjusted to row */
-  justify-content: space-between; 
+  flex-direction: row; 
+  justify-content: space-between;
+  background-image: url(brown-wooden-textured-flooring-background_53876-101851.avif);
+  bottom:0;
+  border: none;
+  border-radius: 25px;
+  padding: 15px 15px;
   
   
-
+  
 }
 
+
 .button-selection-second p {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   margin-bottom: 30px;
-  color: #443f3f;
+  color: #c5c1c1;
   text-align: Left;
   
   
 }
 .button-selection-second .text-column {
-  flex-direction: column;
+  
+  padding: 15px 15px;
   display: flex;
+  flex-direction: column;
   flex: 1; /* This will make the text column take up the available space */
   
+  
+}
+.button-selection-second .imgDisplay{
+  background-image: url(bsdimg.png);
+  background-size: cover; 
+  background-position: center;
+  background-repeat: no-repeat; 
+  flex:1;
+
 }
 
-.button-selection-second button {
-  flex:0;/* This will prevent the button from growing */
-  margin-bottom: 20px;
-  padding: 15px 30px;
-  font-size: 1.2rem;
-  border: none;
-  background-color: rgb(178, 184, 157);
-  color: #003366;
-  border-radius: 12px;
-  cursor: pointer;
-  font-weight: 600;
-  width: 220px;
-  height: 120px;
-  text-align: center;
-  transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
-  margin-right: 105px;
-  margin-left: 105px;
-}
-
-
-.button-selection-second button:hover {
-  transform: scale(1.05) translateY(-5px); /* Adding vertical movement */
-  background-color: #c7d1e2ed;
-  box-shadow: 0px 5px 30px rgba(0, 0, 0, 0.2); /* Shadow gives the lift effect */
-}
 .Modal {
   position: absolute;
   top: 50%;
@@ -154,7 +176,7 @@ h1 {
   width:400px;
   height:420px;
   transform: translate(-50%, -50%);
-  background: #720a0a;
+  background: #ffffff;
   padding: 20px;
   background-image: url('tea.jpg');
   background-size: cover; 
@@ -176,14 +198,6 @@ h1 {
   bottom: 0;
   background: rgba(255, 255, 255, 0.5);
   z-index: 10;
-}
-
-
-.particles {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: none;
 }
 
 
