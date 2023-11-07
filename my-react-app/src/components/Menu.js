@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import './Menu.css';
 
-const Menu = () => {
+const Menu = ({ cart, setCart }) => {
+  let navigate = useNavigate();
   const [menuItems, setMenuItems] = useState([]);
   const [selectedDrink, setSelectedDrink] = useState(null);
   const [quantities, setQuantities] = useState({});
   const [showToppingsModal, setShowToppingsModal] = useState(false);
   const [toppings, setToppings] = useState([]);
   const [selectedToppings, setSelectedToppings] = useState({});
-  const [cart, setCart] = useState([]); // State to hold the cart items
   const [showCart, setShowCart] = useState(false); 
 
   useEffect(() => {
@@ -235,6 +236,7 @@ const Menu = () => {
                 </tbody>
               </table>
               <button onClick={() => setShowCart(false)}>Close</button>
+              <button onClick={() => navigate('/checkout')}>Checkout</button>
             </div>
           </div>
        )}
