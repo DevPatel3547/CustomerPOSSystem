@@ -2,14 +2,75 @@
 import React, { useState } from 'react';
 import ScaleText from 'react-scale-text';
 import Modal from 'react-modal';
-import './customer.css';
 import { useNavigate } from 'react-router-dom';
-import Particles from 'particlesjs';
+import './customer.css';
 import { useEffect } from 'react';
-
-
-
- 
+const particlesOptions = {
+  particles: {
+    number: {
+      value: 80,
+      density: {
+        enable: true,
+        value_area: 10000
+      }
+    },
+    shape: {
+      type: 'circle'
+    },
+    opacity: {
+      value: 0.3,
+      random: true,
+      anim: {
+        enable: false
+      }
+    },
+    size: {
+      value: 10,
+      random: true,
+      anim: {
+        enable: true,
+        speed: 2,
+        size_min: 0.1,
+        sync: false
+      }
+    },
+    line_linked: {
+      enable: false
+    },
+    move: {
+      enable: true,
+      speed: 1,
+      direction: 'none',
+      random: true,
+      straight: false,
+      out_mode: 'out',
+      bounce: false
+    }
+  },
+  interactivity: {
+    detect_on: 'canvas',
+    events: {
+      onhover: {
+        enable: true,
+        mode: 'bubble'
+      },
+      onclick: {
+        enable: false
+      },
+      resize: true
+    },
+    modes: {
+      bubble: {
+  distance: 250,
+  size: 100,
+  duration: 2,
+  opacity: 1, // This will make them fully opaque on hover
+  speed: 3
+}
+    }
+  },
+  retina_detect: true
+};
 
 const CustomerPage = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false); // State to manage modal visibility
@@ -56,7 +117,7 @@ const CustomerPage = () => {
     setModalIsOpen(false);
   }
   const goToMenu = () => {
-    navigate('/menu');
+    navigate('/Menu');
 
   }
   // useEffect(() => { //THIS CAUSES ERRORS
