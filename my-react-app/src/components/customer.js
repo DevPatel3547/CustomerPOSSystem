@@ -5,114 +5,19 @@ import Modal from 'react-modal';
 import { useNavigate } from 'react-router-dom';
 import './customer.css';
 import { useEffect } from 'react';
-const particlesOptions = {
-  particles: {
-    number: {
-      value: 80,
-      density: {
-        enable: true,
-        value_area: 10000
-      }
-    },
-    shape: {
-      type: 'circle'
-    },
-    opacity: {
-      value: 0.3,
-      random: true,
-      anim: {
-        enable: false
-      }
-    },
-    size: {
-      value: 10,
-      random: true,
-      anim: {
-        enable: true,
-        speed: 2,
-        size_min: 0.1,
-        sync: false
-      }
-    },
-    line_linked: {
-      enable: false
-    },
-    move: {
-      enable: true,
-      speed: 1,
-      direction: 'none',
-      random: true,
-      straight: false,
-      out_mode: 'out',
-      bounce: false
-    }
-  },
-  interactivity: {
-    detect_on: 'canvas',
-    events: {
-      onhover: {
-        enable: true,
-        mode: 'bubble'
-      },
-      onclick: {
-        enable: false
-      },
-      resize: true
-    },
-    modes: {
-      bubble: {
-  distance: 250,
-  size: 100,
-  duration: 2,
-  opacity: 1, // This will make them fully opaque on hover
-  speed: 3
-}
-    }
-  },
-  retina_detect: true
-};
+import { Loader } from "@googlemaps/js-api-loader"
+//AIzaSyCEFaXBQ4EVffaWnys01L4QmfaOIlk36HY
 
 const CustomerPage = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false); // State to manage modal visibility
+  const [isMapModalOpen, setIsMapModalOpen] = useState(false);
   const navigate = useNavigate();
-  const particlesConfig = {
-    particles: {
-      number: {
-        value: 80, // Number of particles
-        density: {
-          enable: true,
-          value_area: 800 // Area that particles cover
-        }
-      },
-      color: {
-        value: "#ffffff" // Color of the particles
-      },
-      opacity: {
-        value: 0.5,
-        random: false,
-        anim: {
-          enable: false
-        }
-      },
-      size: {
-        value: 5, // Size of the particles
-        random: true
-      },
-      line_linked: {
-        enable: false
-      },
-      move: {
-        speed: 1 // Speed of the particle movement
-      }
-    }
-  };
 
   const openModal = () => {
     setModalIsOpen(true);
   
     
   }
-
   const closeModal = () => {
     setModalIsOpen(false);
   }
@@ -120,12 +25,54 @@ const CustomerPage = () => {
     navigate('/Menu');
 
   }
-  // useEffect(() => { //THIS CAUSES ERRORS
-  //   Particles.init({
-  //     selector: '.Overlay',
-  //     ...particlesConfig
-  //   });
-  // }, []);
+
+  const loadGoogleMap = () => {
+    const loader = new Loader({
+      apiKey: 'AIzaSyCEFaXBQ4EVffaWnys01L4QmfaOIlk36HY', //API KEY
+      version: 'weekly',
+    });
+  
+    return loader.load().then(() => {
+      return window.google; // Return the google object
+    });
+  };
+
+  useEffect(() => {
+    if (isMapModalOpen) {
+      loadGoogleMap().then((google) => {
+        const map = new google.maps.Map(document.getElementById('map-overlay'), {
+          center: { lat: 31.792290, lng: -95.768180 },
+          zoom: 7,
+        });
+  
+        new google.maps.Marker({
+          position: { lat: 32.961740, lng: -96.682530 },
+          map: map,
+          label: "A",
+          title: "The Alley",
+          draggable: false,
+          animation: google.maps.Animation.DROP
+        });
+        new google.maps.Marker({
+          position: { lat: 33.089960, lng: -96.804840 },
+          map: map,
+          label: "B",
+          title: "The Alley",
+          draggable: false,
+          animation: google.maps.Animation.DROP
+        });
+        new google.maps.Marker({
+          position: { lat: 29.792290, lng: -95.768181 },
+          map: map,
+          label: "C",
+          title: "The Alley",
+          draggable: false,
+          animation: google.maps.Animation.DROP
+        });
+      });
+    }
+  }, [isMapModalOpen]);
+  
   
   
   return (
@@ -139,20 +86,15 @@ const CustomerPage = () => {
       <div className = "topImgDisplay">
     </div>
       <div className="button-selection">
-      <ScaleText>
-      <button
-    type="button"
-    onClick={(e) => {
-      e.preventDefault();
-      window.location.href='https://www.google.com/maps/dir//The+Alley,+23220+Grand+Cir+Blvd+Ste+130,+Katy,+TX+77449/@29.7884538,-95.8549678,12z/data=!4m8!4m7!1m0!1m5!1m1!1s0x864127881412378f:0x207b18bb4c6f0802!2m2!1d-95.7725655!2d29.7883304?entry=ttu';
-      }}> Find a location near you!</button>
-      </ScaleText>
-      <ScaleText>
+      
+      <button onClick={() => setIsMapModalOpen(true)}>Show Map</button>
+      
+      
         <button onClick={openModal}>Preview of what we have to offer!</button>
-        </ScaleText>
-        <ScaleText>
+        
+        
         <button onClick={goToMenu}>Order Now!</button>
-        </ScaleText>
+        
       </div>
      
       <div className="second-part">
@@ -192,9 +134,27 @@ const CustomerPage = () => {
         className="Modal"
         overlayClassName="Overlay">
   
-        <div style={{ position: 'relative', height: '100%' }}/>
+        <div style={{ position: 'absolute', height: '100%' }}/>
           
       </Modal>
+      <Modal
+      isOpen={isMapModalOpen}
+      onRequestClose={() => setIsMapModalOpen(false)}
+      contentLabel="Map"
+      className="MapModal" // Use the new class name here
+      overlayClassName="Overlay">
+      <div 
+      id="map-overlay" 
+      style={{ 
+        width: '900px', 
+        height: '600px', 
+        position: 'absolute',  
+        left: '50%',           
+        top: '50%',            
+        transform: 'translate(-50%, -50%)'
+  }} 
+/>
+    </Modal>
     </div>
   );
 }
