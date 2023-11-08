@@ -8,9 +8,11 @@ const cors = require('cors');
 var indexRouter = require('./routes/index');
 // var usersRouter = require('./routes/users');
 var testAPIRouter = require('./routes/testAPI');
-// let test2Router = require('./routes/test2');
+let test2Router = require('./routes/test2');
 const getTableRouter = require('./routes/getTable');
 const postTestRouter = require('./routes/postTest');
+// const postTest2Router = require('./routes/postTest2');
+const insertIntoRouter = require('./routes/insertInto');
 
 var app = express();
 
@@ -30,9 +32,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 // app.use('/users', usersRouter);
 app.use('/testAPI', testAPIRouter);
-// app.use('/test2', test2Router);
+app.use('/test2', test2Router);
 app.use('/getTable', getTableRouter);
 app.use('/postTest', postTestRouter);
+// app.use('/postTest2', postTest2Router);
+app.use('/insertInto', insertIntoRouter);
 //----------------------------------------------
 
 // catch 404 and forward to error handler
