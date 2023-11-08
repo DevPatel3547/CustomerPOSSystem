@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import './Menu.css';
+import { Container, Table, Button, Modal, Form } from 'react-bootstrap';
+import './menu.css';
 
 const Menu = ({ cart, setCart }) => {
   let navigate = useNavigate();
@@ -153,10 +154,10 @@ const Menu = ({ cart, setCart }) => {
   
 
   return (
-    <div className="menu-container">
-      <h1>Drinks Menu</h1>
-      <button onClick={() => setShowCart(true)} className="cart-button">Cart</button>
-      <table>
+    <Container className="py-4">
+      <h1 className="text-center mb-4">Drinks Menu</h1>
+      <Button variant="primary" onClick={() => setShowCart(true)}>Cart</Button>
+      <table striped bordered hover className="my-4">
         <thead>
           <tr>
             <th>Name of Drink</th>
@@ -240,7 +241,7 @@ const Menu = ({ cart, setCart }) => {
             </div>
           </div>
        )}
-    </div>
+    </Container>
   );
 };
 
