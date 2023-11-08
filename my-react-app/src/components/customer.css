@@ -1,4 +1,4 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
 @keyframes fadeIn {
   from {
       opacity: 0;
@@ -22,47 +22,62 @@
 
 
 .customer-container {
+  position:relative;
   background-image: url('pexels-tbee-82256.jpg'); 
   background-size: cover; 
   background-position: center; 
   background-repeat: no-repeat;
-  padding: 100px 150px;
+  padding: 100px 120px;
   box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.1);
   animation: fadeIn 0.7s forwards;
   align-items: vertical;
   overflow:auto;
-  margin-top: 0; /* Ensure no large margin at the top */ 
+  margin-top: 0; 
   width:100%;
   height:100%;
   
 }
+
+.topBar{
+  background-image: url(brown-wooden-textured-flooring-background_53876-101851.avif);
+  background-color: #000;
+  width:1600px;
+  height:150px;
+  top:0;
+  margin-top: -100px;
+  margin-left:-150px;
+  align-self: left;
+
+  
+  
+  
+}
 .backButton button{
-  color: #003366;
+  color: #030a12;
   font-size: 1.3rem;
   border: none;
   border-radius: 50%;
   border: 2px solid #000;
-  border-radius: 50%;
-  border-color: #1b1919;
-  background-color: rgb(178, 184, 157);
+  border-color: #7b7a7a;
+  background-color: rgb(255, 255, 255);
   border-width:2px;
   cursor: pointer;
   font-weight: 600;
   text-align: center;
   transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease; 
-  align-items:left;
+  align-items:center;
   position:fixed;
-  top:0;
-  left:0;
+  top:55px;
+  left:10px;
   justify-content: center; 
 }
 
 .backButton button:hover {
-  transform: scale(1.05) translateY(-5px);
+  transform: scale(1.05) translateX(2px);
   background-color: #c7d1e2ed;
   box-shadow: 0px 5px 30px rgba(0, 0, 0, 0.2);
 }
-.customer-container .topImgDisplay{
+ .topImgDisplay{
   background-image: url(logo.png);
   background-size: cover; 
   background-position: center;
@@ -80,40 +95,50 @@
 h1 {
   font-weight: 700;
   font-size: 3.5rem;
-  color: #003366;
+  color: #dedede;
   margin-bottom: 40px;
   text-align: center;
-  border:2px groove #6b6b6b;
+  font-family: 'Dancing Script', cursive;
   margin: 0 200px;
   
   
 }
 
+.topBar h1{
+  position:relative;
+  font-size: 7rem;
+  bottom: 0;
+  text-align: Left;
+}
+
 .button-selection {
-  
-  background-size: cover; /* This makes sure the image covers the entire element */
-  background-position: center; /* This centers the image */
   display: flex;
-  flex-direction: row;
-  align-items: center;
+  justify-content: center; /* Centers horizontally in a flex container */
+  align-items: center; /* Centers vertically in a flex container */
+  height: 100%; /* Ensure it takes full height of its parent */
+  width: 100%;
+  
 }
 
 
 .button-selection button {
+  margin-top:20px;
   margin-bottom: 20px;
-  padding: 15px 30px;
+  margin-left:105px;
   font-size: 1.2rem;
-  background-color: rgb(178, 184, 157);
-  color: #003366;
+  background-color: rgb(151, 148, 148);
+  background-image: url(istockphoto-1177450328-612x612.jpg);
+  background-image: center;
+  font-family:sans-serif;
+  color: #ffffff;
   border-radius: 50%;
-  border: 2px solid #000;
-  border-radius: 25px;
-  border-color: #003366;
+  border: 2px solid;
+  border-color: #2f2f2f;
   border-width:4px;
   cursor: pointer;
   font-weight: 600;
-  width: 220px;
-  height: 120px;
+  width: 150px;
+  height: 150px;
   text-align: center;
   transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
  
@@ -121,14 +146,15 @@ h1 {
 
 
 .button-selection button:hover {
-  transform: scale(1.05) translateY(-5px);
+  transform: scale(1.01) translateY(-1px);
   background-color: #c7d1e2ed;
   box-shadow: 0px 5px 30px rgba(0, 0, 0, 0.2);
 }
 
-.button-selection-second {
+
+.second-part {
   display: flex;
-  flex-direction: row; 
+  flex-direction: column; 
   justify-content: space-between;
   background-image: url(brown-wooden-textured-flooring-background_53876-101851.avif);
   bottom:0;
@@ -139,9 +165,20 @@ h1 {
   
   
 }
+.textwImg{
+  display:flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-image: url(brown-wooden-textured-flooring-background_53876-101851.avif);
+  bottom:0;
+  border: none;
+  border-radius: 25px;
+  padding: 15px 15px;
+
+}
 
 
-.button-selection-second p {
+.second-part p {
   font-size: 1.2rem;
   margin-bottom: 30px;
   color: #c5c1c1;
@@ -149,7 +186,7 @@ h1 {
   
   
 }
-.button-selection-second .text-column {
+.second-part .text-column {
   
   padding: 15px 15px;
   display: flex;
@@ -158,7 +195,7 @@ h1 {
   
   
 }
-.button-selection-second .imgDisplay{
+.second-part .imgDisplay{
   background-image: url(bsdimg.png);
   background-size: cover; 
   background-position: center;

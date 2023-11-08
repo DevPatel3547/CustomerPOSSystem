@@ -16,7 +16,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/customer" element={<CustomerP />} />
           {/* Pass cart and setCart as props to Menu */}
-          <Route path="/menu" element={<Menu cart={cart} setCart={setCart} />} />
+          <Route path="/Menu" element={<Menu cart={cart} setCart={setCart} />} />
           {/* Pass cart as a prop to Checkout */}
           <Route path="/checkout" element={<Checkout cart={cart} />} />
         </Routes>

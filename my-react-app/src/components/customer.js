@@ -130,12 +130,14 @@ const CustomerPage = () => {
   
   return (
     <div className="customer-container">
+      <div className = "topBar">
       <div className = "backButton">
       <button onClick={() => navigate('/')}>Back</button>
       </div>
+      <h1>Welcome to the Alley!</h1>
+      </div>
       <div className = "topImgDisplay">
     </div>
-      <h1>Welcome to the Alley!</h1>
       <div className="button-selection">
       <ScaleText>
       <button
@@ -149,11 +151,13 @@ const CustomerPage = () => {
         <button onClick={openModal}>Preview of what we have to offer!</button>
         </ScaleText>
         <ScaleText>
-        <button onClick={goToMenu}>Order Now</button>
+        <button onClick={goToMenu}>Order Now!</button>
         </ScaleText>
       </div>
-      
-      <div className="button-selection-second">
+     
+      <div className="second-part">
+      <h1>Bringing passion infused boba to people since 2013</h1>
+      <div className = "textwImg">
         <div className= "text-column">
           <ScaleText>
       <p>Big and small plans in life transcends into experiences;
@@ -178,6 +182,7 @@ const CustomerPage = () => {
 
     <div className = "imgDisplay">
     </div>
+    </div>
       
       </div>
       <Modal
@@ -193,7 +198,6 @@ const CustomerPage = () => {
     </div>
   );
 }
-
 
 
 export default CustomerPage;
