@@ -13,6 +13,7 @@ const getTableRouter = require('./routes/getTable');
 const postTestRouter = require('./routes/postTest');
 // const postTest2Router = require('./routes/postTest2');
 const insertIntoRouter = require('./routes/insertInto');
+const updateTableRouter = require('./routes/updateTable');
 
 var app = express();
 
@@ -37,6 +38,7 @@ app.use('/getTable', getTableRouter);
 app.use('/postTest', postTestRouter);
 // app.use('/postTest2', postTest2Router);
 app.use('/insertInto', insertIntoRouter);
+app.use('/updateTable', updateTableRouter);
 //----------------------------------------------
 
 // catch 404 and forward to error handler

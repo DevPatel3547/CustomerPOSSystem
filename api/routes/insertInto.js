@@ -18,6 +18,22 @@ process.on('SIGINT', function() {
     process.exit(0);
 });
 
+/*
+How to give data (example):
+
+const data = {
+
+    //always have table be the first attribute
+    table: 'tableName',
+
+    //these are the values you are entering into the table
+    //can be whatever you want
+    flavor: 'Mango Pearl',
+    price: '5.64',
+    ...
+}
+*/
+
 router.post('/', (req, res) => {
     console.log('InsertInto');
     const requestData = req.body;
