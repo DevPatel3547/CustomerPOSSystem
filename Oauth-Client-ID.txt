@@ -1,0 +1,6 @@
+Oauth Client ID
+241129987927-u7tu85kmdrs0ref1delh9gal1p3b75s5.apps.googleusercontent.com
+
+Your Client Secret
+
+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

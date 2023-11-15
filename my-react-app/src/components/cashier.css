@@ -1,0 +1,11 @@
+.title {
+    color: #1c1919;
+    font-size: 4rem;
+    margin-bottom: 2rem;
+    font-family: 'Courier New', Courier, monospace;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: bold;
+    text-shadow: none; /* Removing the shadow for a cleaner look */
+    background: none;
+  }

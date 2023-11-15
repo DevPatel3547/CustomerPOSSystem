@@ -12,7 +12,7 @@ const HomePage = () => {
         <div className="nav-options">
           <span onClick={() => navigate('/manager')}>Manager</span>
           <span onClick={() => navigate('/customer')}>Customer</span>
-          <span onClick={() => navigate('/cashier')}>Cashier</span>
+          <span onClick={() => navigate('/login')}>Cashier</span>
           <span onClick={() => navigate('/menu-board')}>Menu Board</span>
         </div>
       </div>

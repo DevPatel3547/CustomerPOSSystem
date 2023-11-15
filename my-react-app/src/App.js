@@ -5,6 +5,9 @@ import HomePage from './components/HomePage';
 import CustomerP from './components/customer';
 import Menu from './components/menu';
 import Checkout from './components/Checkout';
+import Login from './components/login';
+import Cashier from './components/cashier';
+
 
 function App() {
   const [cart, setCart] = useState([]); // Initialize the cart state here
@@ -17,6 +20,8 @@ function App() {
           <Route path="/customer" element={<CustomerP />} />
           <Route path="/menu" element={<Menu cart={cart} setCart={setCart} />} />
           <Route path="/checkout" element={<Checkout cart={cart} />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/cashier" element={<Cashier />} />
         </Routes>
       </div>
     </Router>
