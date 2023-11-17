@@ -7,18 +7,21 @@ const Checkout = ({ cart }) => {
 
   const handleCheckout = async () => {
     try {
-      const requests = cart.map(item => {
-        const data = {
-          table: 'inventory',
-          flavor: item.name,
-          price: item.cost.toString(),
-          quantity: item.quantity.toString(),
-          ingredients: item.ingredients,
-          identify: 'name_of_item',
-          identifyKey: item.name
-        };
+      // Map each cart item to an array of POST request promises for each ingredient and topping
+      const requests = cart.flatMap(item => {
+        // Combine ingredients and topping into a single list
+        const allIngredients = item.ingredients.split(', ').concat(item.topping ? [item.topping] : []);
 
-        return axios.post('http://localhost:9000/updateTable', data);
+        return allIngredients.map(ingredient => {
+          const data = {
+            table: 'inventory', // Replace with your actual table name
+            name: ingredient, // Name of the ingredient
+            quantity: item.quantity.toString(), // Quantity of the item
+            identify: 'name', // Field to identify the item in the database
+            identifyKey: ingredient // Actual name of the ingredient to be updated
+          };
+          return axios.post('http://localhost:9000/updateTable', data);
+        });
       });
 
       const responses = await Promise.all(requests);

@@ -21,7 +21,7 @@
   letter-spacing: 0.1em;
   text-transform: uppercase;
   font-weight: bold;
-  text-shadow: none; /* Removing the shadow for a cleaner look */
+  text-shadow: none; 
   background: none;
 }
 

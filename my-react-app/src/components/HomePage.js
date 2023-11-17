@@ -8,7 +8,7 @@ const HomePage = () => {
   return (
     <div className="homepage">
       <div className="central-image">
-        <h1 className="title">The Alley</h1>
+        <h1 style={{color: 'white'}} className="title">The Alley</h1>
         <div className="nav-options">
           <span onClick={() => navigate('/manager')}>Manager</span>
           <span onClick={() => navigate('/customer')}>Customer</span>

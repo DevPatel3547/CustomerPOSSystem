@@ -10,7 +10,7 @@ const Cashier = () => {
     return (
       <div className="Cashier">
         
-          <h1 className="title">What do you mean</h1>
+          <h1>What do you mean</h1>
       </div>
     );
   };
