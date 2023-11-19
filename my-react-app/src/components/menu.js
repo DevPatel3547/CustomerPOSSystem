@@ -155,6 +155,9 @@ const Menu = ({ cart, setCart }) => {
 
   return (
     <Container className="py-4">
+      <div className = "backButton">
+      <button onClick={() => navigate('/')}>Back</button>
+      </div>
       <h1 className="text-center mb-4">Drinks Menu</h1>
       <Button variant="primary" onClick={() => setShowCart(true)}>Cart</Button>
       <table striped bordered hover className="my-4">
@@ -246,3 +249,4 @@ const Menu = ({ cart, setCart }) => {
 };
 
 export default Menu;
+

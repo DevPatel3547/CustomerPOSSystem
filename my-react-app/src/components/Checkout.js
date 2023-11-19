@@ -20,6 +20,7 @@ const Checkout = ({ cart }) => {
               <td>{item.name}</td>
               <td>{item.topping}</td>
               <td>{item.quantity}</td>
+              <td>{item.price}</td>
             </tr>
           ))}
         </tbody>
