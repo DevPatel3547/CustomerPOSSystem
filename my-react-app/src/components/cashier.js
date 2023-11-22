@@ -1,13 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-<<<<<<< HEAD
-import ScaleText from 'react-scale-text';
-
-=======
 import { useNavigate } from 'react-router-dom';
 import { Container, Table, Button, Modal, Form } from 'react-bootstrap';
 import './menu.css';
->>>>>>> f7338cfc8ab07236ff8f4d2cee116d5757bce628
 
 const Menu = ({ cart, setCart }) => {
   let navigate = useNavigate();
@@ -22,7 +17,7 @@ const Menu = ({ cart, setCart }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:9000/getTable/menu');
+        const response = await axios.get('https://project-3-team910-10b-backend.onrender.com/gettable/menu');
         const drinks = response.data.filter(item => item.type === 'Drink');
         const toppings = response.data.filter(item => item.type === 'Topping');
         setMenuItems(drinks);

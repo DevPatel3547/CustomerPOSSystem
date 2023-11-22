@@ -22,6 +22,7 @@ function App() {
           <Route path="/checkout" element={<Checkout cart={cart} />} />
           <Route path="/login" element={<Login />} />
           <Route path="/cashier" element={<Cashier cart={cart} setCart={setCart}/>} />
+          <Route path="/menu-board" element={<Menu cart={cart} setCart={setCart} />} />
         </Routes>
       </div>
     </Router>
