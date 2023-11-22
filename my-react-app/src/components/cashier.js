@@ -5,8 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import './cashier.css';
 import axios from 'axios';
 import ScaleText from 'react-scale-text';
-//import { cart,setCart } from './menu';
-import {handleQuantityChange} from './menu.js';
+
 
 
 
