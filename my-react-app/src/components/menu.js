@@ -41,14 +41,29 @@ const Menu = ({ cart, setCart }) => {
 
   const handleAddClick = (drinkName) => {
     setSelectedDrink(drinkName);
+  
+    // Reset selected toppings for the new item
+    setSelectedToppings(prevToppings => ({
+      ...prevToppings,
+      [drinkName]: [] // This ensures a fresh array for new selections
+    }));
+  
     setShowToppingsModal(true);
   };
-  
 
-  const handleToppingChange = (drinkName, topping) => {
-    setSelectedToppings(prevToppings => ({ ...prevToppings, [drinkName]: topping }));
+  const handleAddMoreToppings = (drinkName, newTopping) => {
+    setSelectedToppings(prevToppings => ({
+      ...prevToppings,
+      [drinkName]: [...(prevToppings[drinkName] || []), newTopping]
+    }));
   };
 
+  const handleToppingChange = (drinkName, topping) => {
+    setSelectedToppings(prevToppings => ({
+      ...prevToppings,
+      [drinkName]: prevToppings[drinkName] ? [...prevToppings[drinkName], topping] : [topping]
+    }));
+  };
   const handleQuantityChange = (drinkName, increment) => {
     if (increment) {
       // Set the selected drink and show toppings modal to add a new item
@@ -96,8 +111,8 @@ const Menu = ({ cart, setCart }) => {
   
           
   const handleToppingDone = () => {
-    if (!selectedToppings[selectedDrink]) {
-      alert('Please select a topping.');
+    if (!selectedToppings[selectedDrink] || selectedToppings[selectedDrink].length === 0) {
+      alert('Please select at least one topping.');
       return;
     }
     setShowToppingsModal(false);
@@ -108,22 +123,29 @@ const Menu = ({ cart, setCart }) => {
 
   const addToCart = () => {
     const drinkDetails = menuItems.find(drink => drink.name_of_item === selectedDrink);
-    const toppingsDetails = toppings.find(topping => topping.name_of_item === selectedToppings[selectedDrink]);
+    const toppingsList = selectedToppings[selectedDrink] || [];
+    const toppingsString = toppingsList.join(', ');
+  
+    // Include the toppings in the final ingredients list
+    const finalIngredients = `${drinkDetails.ingredients}, ${toppingsString}`;
+  
+    // Call updateCart with the combined toppings string
+    updateCart(selectedDrink, 1, toppingsString, drinkDetails.cost_of_item, finalIngredients);
     
-    // Combine drink ingredients and topping as the final ingredients list
-    const finalIngredients = `${drinkDetails.ingredients}${toppingsDetails ? ', ' + toppingsDetails.name_of_item : ''}`;
-    
-    // Call updateCart with the selected drink, quantity 1, the selected topping, and the drink details
-    updateCart(selectedDrink, 1, selectedToppings[selectedDrink], drinkDetails.cost_of_item, finalIngredients);
-    
+    setShowToppingsModal(false);
+    setSelectedDrink(null);
+  
+    // Reset the selected toppings for the next item
+    setSelectedToppings(prevToppings => ({
+      ...prevToppings,
+      [selectedDrink]: []
+    }));
+  
     // Update the quantity in the menu table
     setQuantities(prevQuantities => ({
       ...prevQuantities,
       [selectedDrink]: prevQuantities[selectedDrink] + 1,
     }));
-    
-    setShowToppingsModal(false);
-    setSelectedDrink(null);
   };
   
   
@@ -193,27 +215,20 @@ const Menu = ({ cart, setCart }) => {
       </table>
 
       {showToppingsModal && (
-        <div className="modal">
-          <div className="modal-content">
-            <h2>Select a topping for {menuItems.find(drink => drink.name_of_item === selectedDrink)?.name_of_item}</h2>
-            <select
-              onChange={(e) => handleToppingChange(selectedDrink, e.target.value)}
-              value={selectedToppings[selectedDrink] || ''}
-            >
-              <option value="">--Choose a topping--</option>
-              {toppings.map(topping => (
-                <option key={topping.name_of_item} value={topping.name_of_item}>
-                  {topping.name_of_item}
-                </option>
-              ))}
-            </select>
-            <div>
-              <button onClick={handleToppingDone}>Done</button>
-              <button onClick={() => setShowToppingsModal(false)}>Cancel</button>
+      <div className="modal">
+        <div className="modal-content">
+          <h2>Select toppings for {selectedDrink}</h2>
+          {toppings.map(topping => (
+            <div key={topping.name_of_item}>
+              <label>{topping.name_of_item}</label>
+              <input type="checkbox" onChange={() => handleToppingChange(selectedDrink, topping.name_of_item)} />
             </div>
-          </div>
+          ))}
+          <button onClick={handleToppingDone}>Done</button>
+          <button onClick={() => setShowToppingsModal(false)}>Cancel</button>
         </div>
-      )}
+      </div>
+    )}
 
       {showCart && (
         <div className="modal cart-modal">
