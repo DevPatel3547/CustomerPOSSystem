@@ -1,13 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-<<<<<<< HEAD
-import ScaleText from 'react-scale-text';
-
-=======
 import { useNavigate } from 'react-router-dom';
 import { Container, Table, Button, Modal, Form } from 'react-bootstrap';
 import './menu.css';
->>>>>>> f7338cfc8ab07236ff8f4d2cee116d5757bce628
 
 const Menu = ({ cart, setCart }) => {
   let navigate = useNavigate();
