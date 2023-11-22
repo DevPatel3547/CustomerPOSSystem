@@ -113,53 +113,10 @@ const totalCost = calculateTotalCost(cart);
   </div>
 
         </div>
-<div className = "topImgDisplay">
-      </div>
-    <div className="button-selection">
-        
-        <button onClick={goToMenu}>Manual Order Input</button>
-        
-        
-          <button >Total Cost: {totalCost.toFixed(2)}</button>
-          
-          
-          <button onClick={() => navigate('/checkout')}>Go to checkout</button>
-          
-        </div>
        
-        <div className="second-part">
-        <h1>View Customer Order</h1>
-        
-          <div className= "order-display">
-            <table>
-              <thead>
-                <tr>
-                  <th>Drink</th>
-                  <th>Topping</th>
-                  <th>Quantity</th>
-                  <th>Cost</th>
-                </tr>
-              </thead>
-              <tbody>
-                {cart.map((item) => {
-           const itemCost = menuItems.find(drink => drink.name_of_item === item.name)?.cost_of_item || 0;
-           return (
-                  <tr key={item.id}>
-                    <td>{item.name}</td>
-                    <td>{item.topping}</td>
-                    <td>{item.quantity}</td>
-                    <td>${(itemCost * item.quantity).toFixed(2)}</td> {/* Display the cost for each item */}
-               <button onClick={() => remove(item.id)}>Remove</button>
-                  </tr>
-                );
-           })}
-              </tbody>
-                          </table>
-            
-          </div>
 
         </div>
-      </div>
+      
   );
 };
 
