@@ -7,7 +7,7 @@ import Menu from './components/menu';
 import Checkout from './components/Checkout';
 import Login from './components/login';
 import Cashier from './components/cashier';
-import MenuBoard from './components/menu-board';
+import MenuBoard from './components/menuboard';
 
 function App() {
   const [cart, setCart] = useState([]); // Initialize the cart state here
