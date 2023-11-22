@@ -1,3 +1,4 @@
+// src/components/login.js
 import React, { useState, useEffect } from 'react';
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 import { useNavigate } from 'react-router-dom';
@@ -112,8 +113,11 @@ const totalCost = calculateTotalCost(cart);
   </div>
 
         </div>
-      </div>
-    );
-  };
+       
 
-  export default Cashier;
+        </div>
+      
+  );
+};
+
+export default Cashier;
