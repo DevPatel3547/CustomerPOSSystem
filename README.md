@@ -13,10 +13,10 @@ Look at different routes inside backend by seeing the app.js file and there is a
     npm install google-maps-react
     npm i @react-oauth/google // this is for the Oauth Login
     npm install jwt-decode // for emails to be decoded
-=======
+
 Things to download for backend (download in the api folder):
     BEFORE DOING THIS JUST TRY TO RUN BECAUSE THEY SHOULD ALREADY BE DOWNLOADED IN THE NODE_MODULES FOLDER
     npm install express --save
     npm install pg --save
     npm install dotenv --save
->>>>>>> 84f4ec686275647e7db43fb241738deda0d7e9d3
+

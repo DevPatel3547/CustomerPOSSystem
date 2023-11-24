@@ -35,39 +35,26 @@ const Checkout = ({ cart }) => {
 
   return (
     <div className="checkout-container">
-      <h1>Checkout</h1>
-      <table>
-        <thead>
-          <tr>
-            <th>Drink</th>
-            <th>Topping</th>
-            <th>Quantity</th>
-            <th>Price</th>
-            <th>Ingredients</th> {/* New column for ingredients */}
-          </tr>
-        </thead>
-        <tbody>
-          {cart.map((item, index) => ( // Using index in the key for uniqueness
-            <tr key={`${item.name}-${index}`}> 
-              <td>{item.name}</td>
-              <td>{item.topping}</td>
-              <td>{item.quantity}</td>
-              <td>{item.price}</td>
-            </tr>
-          ))}
-        </tbody>
-        <tfoot>
-          <tr>
-            <td colSpan="4">Total Price</td>
-            <td>${totalPrice.toFixed(2)}</td>
-          </tr>
-        </tfoot>
-      </table>
-      <button className="checkout-button"  onClick={handleCheckout}>
-        Checkout - ${totalPrice.toFixed(2)}
-      </button>
+      <h1 style={{fontFamily: "'Courier New', Courier, monospace", color: "black"}}>Checkout</h1>
+      <div className="checkout-items">
+        {cart.map((item, index) => (
+          <div key={`${item.name}-${index}`} className="checkout-item">
+            <h3>{item.name}</h3>
+            <p><strong>Topping:</strong> {item.topping || 'None'}</p>
+            <p><strong>Quantity:</strong> {item.quantity}</p>
+            <p><strong>Price:</strong> ${item.cost}</p>
+          </div>
+        ))}
+      </div>
+      <div className="checkout-total">
+        <h2>Total Price: ${totalPrice.toFixed(2)}</h2>
+        <button className="checkout-button" onClick={handleCheckout}>
+          Checkout - ${totalPrice.toFixed(2)}
+        </button>
+      </div>
     </div>
   );
+
 };
 
 export default Checkout;

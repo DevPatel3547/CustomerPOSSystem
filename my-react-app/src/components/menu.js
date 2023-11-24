@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { Container, Table, Button, Modal, Form } from 'react-bootstrap';
+import { Container, Table, Button, Modal, Form, Card } from 'react-bootstrap';
 import './menu.css';
 
 const Menu = ({ cart, setCart }) => {
@@ -179,56 +179,60 @@ const Menu = ({ cart, setCart }) => {
   
 
   return (
-    <Container className="py-4">
-      <div className = "backButton">
-      <button onClick={() => navigate('/')}>Back</button>
+    <Container className="py-4 menu-container">
+
+      <div className="navigation-buttons">
+        <Button variant="outline-secondary" onClick={() => navigate('/')}>Back</Button>
+        <Button variant="outline-primary" onClick={() => setShowCart(true)}>View Cart</Button>
       </div>
+
       <h1 className="text-center mb-4">Drinks Menu</h1>
-      <Button variant="primary" onClick={() => setShowCart(true)}>Cart</Button>
-      <table striped bordered hover className="my-4">
-        <thead>
-          <tr>
-            <th>Name of Drink</th>
-            <th>Cost</th>
-            <th>Add</th>
-          </tr>
-        </thead>
-        <tbody>
-          {menuItems.map((drink) => (
-            <tr key={drink.name_of_item}>
-              <td>{drink.name_of_item}</td>
-              <td>${drink.cost_of_item}</td>
-              <td>
-                {quantities[drink.name_of_item] > 0 ? (
-                  <div>
+      
+      <div className="drink-cards">
+        {menuItems.map((drink) => (
+          <Card key={drink.name_of_item} className="drink-card">
+            <Card.Body>
+              <Card.Title>{drink.name_of_item}</Card.Title>
+              <Card.Text>Price: ${drink.cost_of_item}</Card.Text>
+              {quantities[drink.name_of_item] > 0 ? (
+                <div className="quantity-control">
+                  {quantities[drink.name_of_item]}
+                  <Button className="qty-btn" onClick={() => handleQuantityChange(drink.name_of_item, true)}>+</Button>
+                </div>
+              ) : (
+                <Button className="add-btn" onClick={() => handleAddClick(drink.name_of_item)}>Add</Button>
+              )}
+            </Card.Body>
+          </Card>
+        ))}
+      </div>
 
-                    {quantities[drink.name_of_item]}
-                    <button onClick={() => handleQuantityChange(drink.name_of_item, true)}>+</button>
-                  </div>
-                ) : (
-                  <button onClick={() => handleAddClick(drink.name_of_item)}>Add</button>
-                )}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+  
 
-      {showToppingsModal && (
+    {showToppingsModal && (
       <div className="modal">
         <div className="modal-content">
-          <h2>Select toppings for {selectedDrink}</h2>
-          {toppings.map(topping => (
-            <div key={topping.name_of_item}>
-              <label>{topping.name_of_item}</label>
-              <input type="checkbox" onChange={() => handleToppingChange(selectedDrink, topping.name_of_item)} />
-            </div>
-          ))}
-          <button onClick={handleToppingDone}>Done</button>
-          <button onClick={() => setShowToppingsModal(false)}>Cancel</button>
+          <h3>Select Toppings for {selectedDrink}</h3>
+          <div className="topping-options">
+            {toppings.map((topping) => (
+              <div key={topping.name_of_item} className="topping-item">
+                <input 
+                  type="checkbox" 
+                  id={`topping-${topping.name_of_item}`} 
+                  onChange={() => handleToppingChange(selectedDrink, topping.name_of_item)} 
+                />
+                <label htmlFor={`topping-${topping.name_of_item}`}>{topping.name_of_item}</label>
+              </div>
+            ))}
+          </div>
+          <div className="modal-actions">
+            <Button variant="success" onClick={handleToppingDone}>Done</Button>
+            <Button variant="secondary" onClick={() => setShowToppingsModal(false)}>Cancel</Button>
+          </div>
         </div>
       </div>
     )}
+
 
       {showCart && (
         <div className="modal cart-modal">
