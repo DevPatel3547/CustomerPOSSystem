@@ -14,7 +14,7 @@ const pool = new Pool({
 
 process.on('SIGINT', function() {
     pool.end();
-    console.log('\nupdateTable pool successfully shut down');
+    console.log('\nupdateMinus pool successfully shut down');
     process.exit(0);
 });
 
@@ -44,7 +44,7 @@ const data = {
 */
 
 router.post('/', (req, res) => {
-    console.log('updateTable');
+    console.log('updateMinus');
     const requestData = req.body;
     console.log(req.body.table);
     console.log('Identifier: ' + req.body.identify);
@@ -64,10 +64,10 @@ router.post('/', (req, res) => {
 
     let query = 'UPDATE ' + req.body.table + ' SET ';
     for (let i = 0; i < names.length - 1; i++) {
-        query += names[i] + ` = '` + values[i] + `', `;
+        query += names[i] + ` = ` + names[i] + ` - ` + values[i] + `, `;
     }
-    query += names[names.length - 1] + ` = '` + values[values.length - 1]
-    query += `' WHERE ` + req.body.identify + ` = '` + req.body.identifyKey + `';`
+    query += names[names.length - 1] + ` = ` + names[names.length - 1] + ` - ` + values[values.length - 1];
+    query += ` WHERE ` + req.body.identify + ` = '` + req.body.identifyKey + `';`;
     console.log(query);
     
     // res.send(query);
