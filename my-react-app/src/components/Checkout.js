@@ -10,17 +10,18 @@ const Checkout = ({ cart }) => {
       // Map each cart item to an array of POST request promises for each ingredient and topping
       const requests = cart.flatMap(item => {
         // Combine ingredients and topping into a single list
-        const allIngredients = item.ingredients.split(', ').concat(item.topping ? [item.topping] : []);
+        const toppingsList = item.topping ? item.topping.split(', ') : [];
+        const allIngredients = item.ingredients.split(', ');
 
-        return allIngredients.map(ingredient => {
+        return [...allIngredients, ...toppingsList].map(ingredientOrTopping => {
           const data = {
-            table: 'inventory', // Replace with your actual table name
-            name: ingredient, // Name of the ingredient
-            quantity: item.quantity.toString(), // Quantity of the item
-            identify: 'name', // Field to identify the item in the database
-            identifyKey: ingredient // Actual name of the ingredient to be updated
+            table: 'inventory',
+            name: ingredientOrTopping,
+            quantity: item.quantity.toString(),
+            identify: 'name',
+            identifyKey: ingredientOrTopping
           };
-          return axios.post('http://localhost:9000/updateTable', data);
+          return axios.post('https://project-3-team910-10b-backend.onrender.com/updateTable', data);
         });
       });
 
@@ -43,6 +44,7 @@ const Checkout = ({ cart }) => {
             <p><strong>Topping:</strong> {item.topping || 'None'}</p>
             <p><strong>Quantity:</strong> {item.quantity}</p>
             <p><strong>Price:</strong> ${item.cost}</p>
+            <p><strong>Ingredients: </strong>{item.ingredients}</p>
           </div>
         ))}
       </div>
