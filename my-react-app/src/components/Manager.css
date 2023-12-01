@@ -1,0 +1,41 @@
+/* manager.css */
+.manager-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: linear-gradient(to right, #f6d365 0%, #fda085 100%);
+}
+
+.manager-title {
+    font-size: 2.5em;
+    color: #ffffff;
+    margin-bottom: 30px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.buttons-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 20px;
+    width: 80%;
+    max-width: 600px;
+}
+
+.dashboard-button {
+    padding: 20px;
+    border: none;
+    border-radius: 10px;
+    background-color: #ffffff;
+    color: #333;
+    font-size: 1.2em;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.dashboard-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
