@@ -15,6 +15,10 @@
     transition: transform 0.3s ease-in-out; /* Transition for smooth scaling */
     
   }
+
+  .itemCard .card-title{
+    font-size:calc(25px * var(--font-size-multiplier));
+  }
   
   .itemCard:hover {
     transform: scale(1.05); /* Scales up the card on hover */

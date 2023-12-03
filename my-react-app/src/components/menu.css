@@ -18,7 +18,10 @@
   margin-bottom: 20px;
 }
 
-.itemCard .card-title{
+.card-title{
+  font-size:calc(25px * var(--font-size-multiplier));
+}
+.drink-card .card-title{
   font-size:calc(25px * var(--font-size-multiplier));
 }
 .drink-cards {
