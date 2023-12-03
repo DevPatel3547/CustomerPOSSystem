@@ -12,6 +12,16 @@ const CustomerPage = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false); // State to manage modal visibility
   const [isMapModalOpen, setIsMapModalOpen] = useState(false);
   const navigate = useNavigate();
+  const [multiplier, setMultiplier] = useState(1); // Start with no scaling
+
+
+  useEffect(() => {
+    // Update the CSS variable when the multiplier changes
+    document.documentElement.style.setProperty('--font-size-multiplier', multiplier);
+  }, [multiplier]);
+
+  const increaseFontSize = () => setMultiplier(multiplier + 0.1);
+  const decreaseFontSize = () => setMultiplier(multiplier - 0.1);
 
   const openModal = () => {
     setModalIsOpen(true);
@@ -77,15 +87,20 @@ const CustomerPage = () => {
   
   return (
     <div className="customer-container">
+
       <div className = "topBar">
-      <div className = "backButton">
+      <div className = "backButtons">
       <button onClick={() => navigate('/')}>Back</button>
       </div>
       <h1>Welcome to the Alley!</h1>
       </div>
+      <div className="textSize">
+    <button onClick={increaseFontSize}>+ Font Size</button>
+      <button onClick={decreaseFontSize}>- Font Size</button>
+      </div>
       <div className = "topImgDisplay">
     </div>
-      <div className="button-selection">
+      <div className="button-selections">
       
       <button onClick={() => setIsMapModalOpen(true)}>Show Map</button>
       
@@ -97,7 +112,7 @@ const CustomerPage = () => {
         
       </div>
      
-      <div className="second-part">
+      <div className="second-parts">
       <h1>Bringing passion infused boba to people since 2013</h1>
       <div className = "textwImg">
         <div className= "text-column">

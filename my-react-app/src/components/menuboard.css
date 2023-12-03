@@ -3,6 +3,7 @@
     flex-wrap: wrap;
     gap: 20px; /* This sets a uniform gap between the cards */
     justify-content: center;
+    
   }
   
   .itemCard {
@@ -12,6 +13,7 @@
     padding: 15px;
     text-align: center;
     transition: transform 0.3s ease-in-out; /* Transition for smooth scaling */
+    
   }
   
   .itemCard:hover {

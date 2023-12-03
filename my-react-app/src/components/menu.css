@@ -18,11 +18,15 @@
   margin-bottom: 20px;
 }
 
+.itemCard .card-title{
+  font-size:calc(25px * var(--font-size-multiplier));
+}
 .drink-cards {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
   justify-content: center;
+  
 }
 
 .drink-card {
@@ -32,6 +36,7 @@
   border-radius: 10px;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  
 }
 
 .drink-card:hover {
@@ -41,6 +46,7 @@
 
 .card-body {
   text-align: center;
+  font-size:calc(16px * var(--font-size-multiplier));
 }
 
 .add-btn, .qty-btn {
@@ -127,6 +133,7 @@ button:hover {
 .topping-item {
   display: flex;
   align-items: center;
+  
 }
 
 .topping-item input[type="checkbox"] {
@@ -209,4 +216,5 @@ h1.text-center {
   font-family: 'Courier New', Courier, monospace;
   color: #333;
   margin-bottom: 2rem;
+  
 }

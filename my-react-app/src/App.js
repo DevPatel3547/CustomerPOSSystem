@@ -10,12 +10,15 @@ import Cashier from './components/cashier';
 import MenuBoard from './components/menuboard';
 import Manager from './components/Manager';
 
+
 function App() {
   const [cart, setCart] = useState([]); // Initialize the cart state here
 
   return (
+    
     <Router>
       <div className="App">
+      
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/customer" element={<CustomerP />} />
@@ -26,8 +29,10 @@ function App() {
           <Route path="/menu-board" element={<MenuBoard cart={cart} setCart={setCart} />} />
           <Route path="/manager" element={<Manager />} />
         </Routes>
+        
       </div>
     </Router>
+    
   );
 }
 

@@ -47,9 +47,10 @@
   margin: 0;
   align-items: center;
 }
-.backButton button{
+.backButtons button{
   color: #030a12;
-  font-size: 1.3rem;
+  font-size: calc(1.3rem * var(--font-size-multiplier));
+  
   border: none;
   border-radius: 50%;
   border: 2px solid #000;
@@ -90,7 +91,7 @@
 
 h1 {
   font-weight: 700;
-  font-size: 3.5rem;
+  font-size: calc(3.5rem * var(--font-size-multiplier));
   color: #dedede;
   margin-bottom: 40px;
   text-align: center;
@@ -107,7 +108,7 @@ h1 {
   text-align:center;
 }
 
-.button-selection {
+.button-selections {
   display: flex;
   justify-content: center; 
   align-items: center;
@@ -118,11 +119,12 @@ h1 {
 }
 
 
-.button-selection button {
+.button-selections button {
+  
   margin-top:0px;
   margin-bottom: 40px;
   margin:0px 90px;
-  font-size: 1.2rem;
+  font-size: calc(1.2rem * var(--font-size-multiplier));
   background-color: rgb(151, 148, 148);
   background-image: url(istockphoto-1177450328-612x612.jpg);
   background-image: center;
@@ -150,7 +152,7 @@ h1 {
 }
 
 
-.second-part {
+.second-parts {
   display: flex;
   flex-direction: column; 
   justify-content: space-between;
@@ -176,15 +178,15 @@ h1 {
 }
 
 
-.second-part p {
-  font-size: 1.2rem;
+.second-parts p {
+  font-size: calc(1.2rem * var(--font-size-multiplier));
   margin-bottom: 30px;
   color: #c5c1c1;
   text-align: Left;
   
   
 }
-.second-part .text-column {
+.second-parts .text-column {
   
   padding: 15px 15px;
   display: flex;
@@ -193,7 +195,7 @@ h1 {
   
   
 }
-.second-part .imgDisplay{
+.second-parts .imgDisplay{
   background-image: url(bsdimg.png);
   background-size: cover; 
   background-position: center;

@@ -1,3 +1,7 @@
+/* :root {
+  --base-font-size: 16px; /* Default base font size */
+ 
+
 .homepage {
   height: 100vh;
   background: url('./tea.jpg') no-repeat center center;
@@ -7,15 +11,17 @@
   align-items: center;
   flex-direction: column;
   text-align: center;
+  
 }
+
 
 .central-image {
   color: white; /* Or any other color that blends well with your image */
 }
 
-.title {
+.titles {
   color: #f8f8f2;
-  font-size: 4rem;
+  font-size: calc(4rem * var(--font-size-multiplier));
   margin-bottom: 2rem;
   font-family: 'Courier New', Courier, monospace;
   letter-spacing: 0.1em;
@@ -25,11 +31,10 @@
   background: none;
 }
 
-
 .nav-options span {
   display: inline-block;
   margin: 0 1rem;
-  font-size: 1.5rem;
+  font-size: calc(1.5rem * var(--font-size-multiplier));
   cursor: pointer;
   padding: 0.5rem 1rem;
   border-radius: 10px;
@@ -44,4 +49,18 @@
   border-color: #ffffff; /* Lighten the border on hover */
   color: #ffffff; /* Optionally change the text color on hover */
   
+}
+
+.textSize {
+  position: absolute;
+  top:0;
+  right:0;
+}
+
+.textSize button {
+  background-color: rgb(97, 97, 97);
+}
+
+.textSize button:hover {
+  background-color: #3c3c3d;
 }

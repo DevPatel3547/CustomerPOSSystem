@@ -25,8 +25,24 @@ const MenuBoard = () => {
     fetchData();
   }, []);
 
+  const [multiplier, setMultiplier] = useState(1); // Start with no scaling
+
+
+  useEffect(() => {
+    // Update the CSS variable when the multiplier changes
+    document.documentElement.style.setProperty('--font-size-multiplier', multiplier);
+  }, [multiplier]);
+
+  const increaseFontSize = () => setMultiplier(multiplier + 0.1);
+  const decreaseFontSize = () => setMultiplier(multiplier - 0.1);
+
   return (
+    
     <Container className="py-4">
+      <div className="textSize">
+    <button onClick={increaseFontSize}>+ Font Size</button>
+      <button onClick={decreaseFontSize}>- Font Size</button>
+      </div>
       <div className="backButton">
         <Button variant="secondary" onClick={() => navigate('/')}>Back</Button>
       </div>
@@ -37,7 +53,7 @@ const MenuBoard = () => {
         {menuItems.map((drink) => (
           <Card key={drink.name_of_item} className="itemCard">
             <Card.Body>
-              <Card.Title>{drink.name_of_item}</Card.Title>
+              <Card.Title >{drink.name_of_item}</Card.Title>
               <Card.Text>
                 Price: ${drink.cost_of_item}
               </Card.Text>

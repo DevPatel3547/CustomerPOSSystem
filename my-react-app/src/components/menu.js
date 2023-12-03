@@ -13,6 +13,16 @@ const Menu = ({ cart, setCart }) => {
   const [toppings, setToppings] = useState([]);
   const [selectedToppings, setSelectedToppings] = useState({});
   const [showCart, setShowCart] = useState(false); 
+  const [multiplier, setMultiplier] = useState(1); // Start with no scaling
+
+
+  useEffect(() => {
+    // Update the CSS variable when the multiplier changes
+    document.documentElement.style.setProperty('--font-size-multiplier', multiplier);
+  }, [multiplier]);
+
+  const increaseFontSize = () => setMultiplier(multiplier + 0.1);
+  const decreaseFontSize = () => setMultiplier(multiplier - 0.1);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -182,6 +192,10 @@ const Menu = ({ cart, setCart }) => {
     <Container className="py-4 menu-container">
 
       <div className="navigation-buttons">
+      <div className="textSize">
+    <button onClick={increaseFontSize}>+ Font Size</button>
+      <button onClick={decreaseFontSize}>- Font Size</button>
+      </div>
         <Button variant="outline-secondary" onClick={() => navigate('/')}>Back</Button>
         <Button variant="outline-primary" onClick={() => setShowCart(true)}>View Cart</Button>
       </div>
