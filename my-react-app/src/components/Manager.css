@@ -1,11 +1,14 @@
 /* manager.css */
 .manager-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
     height: 100vh;
-    background: linear-gradient(to right, #f6d365 0%, #fda085 100%);
+  background: url('./tea.jpg') no-repeat center center;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+
 }
 
 .manager-title {
@@ -16,26 +19,35 @@
 }
 
 .buttons-container {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 20px;
-    width: 80%;
-    max-width: 600px;
+    display: inline-block;
+  margin: 0 1rem;
+  font-size: calc(1.5rem * var(--font-size-multiplier));
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  transition: all 0.3s ease; /* Adjust to transition all properties smoothly */
+  color: #f8f8f2; /* Light color for the text */
+  
 }
 
 .dashboard-button {
-    padding: 20px;
+    padding: 90px;
     border: none;
     border-radius: 10px;
-    background-color: #ffffff;
-    color: #333;
+    background-color: transparent;
+    color: #ffffff;
     font-size: 1.2em;
     cursor: pointer;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s ease;
+    border: 2px solid #f8f8f2; /* Adding a border instead of background */
+    margin-left: 30px;
+   
 }
 
 .dashboard-button:hover {
-    transform: scale(1.05);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    transform: scale(1.1); /* Enlarges the option */
+    background-color: rgba(255, 255, 255, 0.2); /* A subtle background color */
+    border-color: #ffffff; /* Lighten the border on hover */
+    color: #ffffff; /* Optionally change the text color on hover */
 }

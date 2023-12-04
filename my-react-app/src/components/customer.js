@@ -8,10 +8,26 @@ import { useEffect } from 'react';
 import { Loader } from "@googlemaps/js-api-loader"
 //AIzaSyCEFaXBQ4EVffaWnys01L4QmfaOIlk36HY
 
+const api = {
+  key: "f2a81e4f227d943518a0e502688d7acc",
+  base: "https://api.openweathermap.org/data/2.5/",
+};
+
 const CustomerPage = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false); // State to manage modal visibility
   const [isMapModalOpen, setIsMapModalOpen] = useState(false);
   const navigate = useNavigate();
+  const [multiplier, setMultiplier] = useState(1); // Start with no scaling
+
+
+  useEffect(() => {
+    // Update the CSS variable when the multiplier changes
+    document.documentElement.style.setProperty('--font-size-multiplier', multiplier);
+  }, [multiplier]);
+
+  const increaseFontSize = () => setMultiplier(multiplier + 0.1);
+  const decreaseFontSize = () => setMultiplier(multiplier - 0.1);
+  
 
   const openModal = () => {
     setModalIsOpen(true);
@@ -72,20 +88,44 @@ const CustomerPage = () => {
       });
     }
   }, [isMapModalOpen]);
+
+  const [search, setSearch] = useState("");
+  const [weather, setWeather] = useState({});
+
+  /*
+    Search button is pressed. Make a fetch call to the Open Weather Map API.
+  */
+  const searchPressed = () => {
+    fetch(`${api.base}weather?q=${search}&units=metric&APPID=${api.key}`)
+      .then((res) => res.json())
+      .then((result) => {
+        setWeather(result);
+      });
+  };
+
+  
+
+  
+
   
   
   
   return (
     <div className="customer-container">
+
       <div className = "topBar">
-      <div className = "backButton">
+      <div className = "backButtons">
       <button onClick={() => navigate('/')}>Back</button>
       </div>
       <h1>Welcome to the Alley!</h1>
       </div>
+      <div className="textSize">
+    <button onClick={increaseFontSize}>+ Font Size</button>
+      <button onClick={decreaseFontSize}>- Font Size</button>
+      </div>
       <div className = "topImgDisplay">
     </div>
-      <div className="button-selection">
+      <div className="button-selections">
       
       <button onClick={() => setIsMapModalOpen(true)}>Show Map</button>
       
@@ -97,7 +137,7 @@ const CustomerPage = () => {
         
       </div>
      
-      <div className="second-part">
+      <div className="second-parts">
       <h1>Bringing passion infused boba to people since 2013</h1>
       <div className = "textwImg">
         <div className= "text-column">
@@ -155,6 +195,39 @@ const CustomerPage = () => {
   }} 
 />
     </Modal>
+    <div className="App">
+      <header className="App-header">
+        {/* HEADER  */}
+        <h1>Checkout the weather for a great day to enjoy boba.</h1>
+
+        {/* Search Box - Input + Button  */}
+        <div>
+          <input
+            type="text"
+            placeholder="Enter city/town..."
+            onChange={(e) => setSearch(e.target.value)}
+          />
+          <button onClick={searchPressed}>Search</button>
+        </div>
+
+        {/* If weather is not undefined display results from API */}
+        {typeof weather.main !== "undefined" ? (
+          <div>
+            {/* Location  */}
+            <p>{weather.name}</p>
+
+            {/* Temperature Celsius  */}
+            <p>{weather.main.temp}°C</p>
+
+            {/* Condition (Sunny ) */}
+            <p>{weather.weather[0].main}</p>
+            <p>({weather.weather[0].description})</p>
+          </div>
+        ) : (
+          ""
+        )}
+      </header>
+    </div>
     </div>
   );
 }

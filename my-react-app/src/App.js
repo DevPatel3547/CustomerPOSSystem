@@ -12,12 +12,15 @@ import Manager from './components/Manager';
 import OrderHistory from './components/OrderHistory';
 import EditMenu from './components/EditMenu';
 
+
 function App() {
   const [cart, setCart] = useState([]); // Initialize the cart state here
 
   return (
+    
     <Router>
       <div className="App">
+      
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/customer" element={<CustomerP />} />
@@ -30,8 +33,10 @@ function App() {
           <Route path="/OrderHistory" element={<OrderHistory />} />
           <Route path="/EditMenu" element={<EditMenu />} />
         </Routes>
+        
       </div>
     </Router>
+    
   );
 }
 

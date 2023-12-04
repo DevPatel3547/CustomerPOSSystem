@@ -30,7 +30,7 @@
   box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.1);
   animation: fadeIn 0.7s forwards;
   align-items: vertical;
-  overflow-y:auto; 
+   
   width:100%;
   height:100%;
   
@@ -47,9 +47,10 @@
   margin: 0;
   align-items: center;
 }
-.backButton button{
+.backButtons button{
   color: #030a12;
-  font-size: 1.3rem;
+  font-size: calc(1.3rem * var(--font-size-multiplier));
+  
   border: none;
   border-radius: 50%;
   border: 2px solid #000;
@@ -90,7 +91,7 @@
 
 h1 {
   font-weight: 700;
-  font-size: 3.5rem;
+  font-size: calc(3.5rem * var(--font-size-multiplier));
   color: #dedede;
   margin-bottom: 40px;
   text-align: center;
@@ -107,7 +108,7 @@ h1 {
   text-align:center;
 }
 
-.button-selection {
+.button-selections {
   display: flex;
   justify-content: center; 
   align-items: center;
@@ -118,11 +119,12 @@ h1 {
 }
 
 
-.button-selection button {
+.button-selections button {
+  
   margin-top:0px;
   margin-bottom: 40px;
   margin:0px 90px;
-  font-size: 1.2rem;
+  font-size: calc(1.2rem * var(--font-size-multiplier));
   background-color: rgb(151, 148, 148);
   background-image: url(istockphoto-1177450328-612x612.jpg);
   background-image: center;
@@ -143,14 +145,14 @@ h1 {
 }
 
 
-.button-selection button:hover {
-  transform: scale(1.01) translateY(-1px);
+.button-selections button:hover {
+  transform: scale(1.1) translateY(-1px);
   background-color: #c7d1e2ed;
   box-shadow: 0px 5px 30px rgba(0, 0, 0, 0.2);
 }
 
 
-.second-part {
+.second-parts {
   display: flex;
   flex-direction: column; 
   justify-content: space-between;
@@ -176,15 +178,15 @@ h1 {
 }
 
 
-.second-part p {
-  font-size: 1.2rem;
+.second-parts p {
+  font-size: calc(1.2rem * var(--font-size-multiplier));
   margin-bottom: 30px;
   color: #c5c1c1;
   text-align: Left;
   
   
 }
-.second-part .text-column {
+.second-parts .text-column {
   
   padding: 15px 15px;
   display: flex;
@@ -193,7 +195,7 @@ h1 {
   
   
 }
-.second-part .imgDisplay{
+.second-parts .imgDisplay{
   background-image: url(bsdimg.png);
   background-size: cover; 
   background-position: center;
@@ -259,6 +261,71 @@ h1 {
   background: rgba(255, 255, 255, 0.5);
   z-index: 10;
 }
+
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+  border-radius: 5px;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.App button {
+  padding: 8px;
+}
+
+.App input {
+  padding: 8px;
+  outline: none;
+}
+
+.customer-container .textSize{
+  
+  position:sticky;
+  z-index: 1000;  
+ margin-left: 800px;
+ margin-top: 40px;
+
+
+
+}
+
+
+
+
 
 
 

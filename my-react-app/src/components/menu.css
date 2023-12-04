@@ -2,7 +2,8 @@
 
 .menu-container {
 
-  background: linear-gradient(to right, #ff6e7f 0%, #bfe9ff 100%); /* Coral gradient */
+  /* background: linear-gradient(to right, #ff6e7f 0%, #bfe9ff 100%);  */
+  background-image: url('pexels-tbee-82256.jpg');
 
 
 
@@ -18,11 +19,18 @@
   margin-bottom: 20px;
 }
 
+.card-title{
+  font-size:calc(25px * var(--font-size-multiplier));
+}
+.drink-card .card-title{
+  font-size:calc(25px * var(--font-size-multiplier));
+}
 .drink-cards {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
   justify-content: center;
+  
 }
 
 .drink-card {
@@ -32,6 +40,7 @@
   border-radius: 10px;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  
 }
 
 .drink-card:hover {
@@ -41,6 +50,7 @@
 
 .card-body {
   text-align: center;
+  font-size:calc(16px * var(--font-size-multiplier));
 }
 
 .add-btn, .qty-btn {
@@ -58,7 +68,7 @@
 
 
 
-button {
+ button {
   background-color: #007bff; /* Green */
   border: none;
   color: white;
@@ -80,7 +90,7 @@ button:hover {
 
 
 .add-btn:hover {
-  background-color: #ec971f;
+  background-color: #1fbcec;
 }
 
 .qty-btn {
@@ -127,6 +137,7 @@ button:hover {
 .topping-item {
   display: flex;
   align-items: center;
+  
 }
 
 .topping-item input[type="checkbox"] {
@@ -209,4 +220,36 @@ h1.text-center {
   font-family: 'Courier New', Courier, monospace;
   color: #333;
   margin-bottom: 2rem;
+  
+}
+
+.back-button {
+  background-color: #007bff; /* Light gray background */
+  color: #fff; /* Dark text */
+  border: 1px solid #007bff; /* Light gray border */
+  padding: 10px 15px; /* Padding around text */
+  border-radius: 5px; /* Rounded corners */
+  font-weight: bold; /* Bold font */
+}
+.back-button:hover{
+  background-color: #1063bc;
+}
+
+.view-cart-button {
+  background-color: #007bff; /* Blue background */
+  color: #fff; /* White text */
+  border: 1px solid #007bff; /* Blue border */
+  padding: 10px 15px; /* Padding around text */
+  border-radius: 5px; /* Rounded corners */
+  font-weight: bold; /* Bold font */
+}
+
+.navigation-buttons .textSize{
+  
+  position:sticky;
+  z-index: 1000;  
+ 
+
+
+
 }
