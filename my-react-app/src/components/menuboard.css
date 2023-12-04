@@ -3,7 +3,7 @@
     flex-wrap: wrap;
     gap: 20px; /* This sets a uniform gap between the cards */
     justify-content: center;
-    
+    font-family: 'Times New Roman', serif;
     
   }
   
@@ -32,7 +32,18 @@
    margin-left: 800px;
    margin-top: 40px;
   
-  
-  
+  }
+
+  .ItemTypeHeader {
+    color: black;
+    font-size: 60px;
+    font-family: 'Apple Chancery', cursive;
+  }
+
+  .MenuBoardTitle {
+    color: black;
+    font-size: 80px;
+    font-family: 'Snell Roundhand', cursive;
+    font-weight: bold;
   }
   

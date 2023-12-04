@@ -22,8 +22,6 @@ router.post('/updateprice', (req, res) => {
     console.log('updatePrice');
     const { table, cost_of_item, identify, identifyKey } = req.body;
 
-    console.log(`Updating price to: ${cost_of_item}`); // Log the price being set
-
     let query = `UPDATE ${table} SET cost_of_item = '${cost_of_item}' WHERE ${identify} = '${identifyKey}';`;
     console.log(query);
     
@@ -34,9 +32,5 @@ router.post('/updateprice', (req, res) => {
             res.status(500).json({ title: 'Error updating price' });
         });
 });
-
-
-
-
 
 module.exports = router;

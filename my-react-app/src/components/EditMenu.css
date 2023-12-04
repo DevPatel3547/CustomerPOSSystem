@@ -1,0 +1,52 @@
+.edit-menu-container {
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #eaecef; /* Light background */
+  }
+  
+  .edit-menu-container h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+  }
+  
+  .add-item-button {
+    display: block;
+    width: 200px;
+    margin: 0 auto 30px;
+  }
+  
+  .menu-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+  }
+  
+  .menu-item-card {
+    width: 300px;
+    background-color: #fff;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .menu-item-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  }
+  
+  .menu-item-card .btn {
+    margin-right: 10px;
+  }
+  
+  .menu-item-card .btn-primary {
+    background-color: #007bff;
+  }
+  
+  .menu-item-card .btn-danger {
+    background-color: #dc3545;
+  }
+  
