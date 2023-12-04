@@ -46,9 +46,10 @@ const MenuBoard = () => {
       <div className="backButton">
         <Button variant="secondary" onClick={() => navigate('/')}>Back</Button>
       </div>
-      <h1 className="text-center mb-4">Menu Board</h1>
-
-      <h2>Drinks</h2>
+      <div className="MenuBoardTitle">Menu Board</div>
+      <div className="ItemTypeHeader">
+        Drinks
+      </div>
       <div className="menuBoard">
         {menuItems.map((drink) => (
           <Card key={drink.name_of_item} className="itemCard">
@@ -62,7 +63,9 @@ const MenuBoard = () => {
         ))}
       </div>
 
-      <h2>Toppings</h2>
+      <div className="ItemTypeHeader">
+        Toppings
+      </div>
       <div className="menuBoard">
         {toppings.map((topping) => (
           <Card key={topping.name_of_item} className="itemCard">
