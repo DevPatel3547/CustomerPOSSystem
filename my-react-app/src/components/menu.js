@@ -192,12 +192,13 @@ const Menu = ({ cart, setCart }) => {
     <Container className="py-4 menu-container">
 
       <div className="navigation-buttons">
+      
+        <Button className="back-button"  onClick={() => navigate('/')}>Back</Button>
+        <Button className="view-cart-button"  onClick={() => setShowCart(true)}>View Cart</Button>
+      </div>
       <div className="textSize">
     <button onClick={increaseFontSize}>+ Font Size</button>
       <button onClick={decreaseFontSize}>- Font Size</button>
-      </div>
-        <Button variant="outline-secondary" onClick={() => navigate('/')}>Back</Button>
-        <Button variant="outline-primary" onClick={() => setShowCart(true)}>View Cart</Button>
       </div>
 
       <h1 className="text-center mb-4">Drinks Menu</h1>

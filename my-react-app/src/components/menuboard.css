@@ -4,6 +4,7 @@
     gap: 20px; /* This sets a uniform gap between the cards */
     justify-content: center;
     
+    
   }
   
   .itemCard {
@@ -22,5 +23,16 @@
   
   .itemCard:hover {
     transform: scale(1.05); /* Scales up the card on hover */
+  }
+
+  .py-4 .textSize{
+  
+    position:sticky;
+    z-index: 1000;  
+   margin-left: 800px;
+   margin-top: 40px;
+  
+  
+  
   }
   

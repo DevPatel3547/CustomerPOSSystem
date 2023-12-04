@@ -30,7 +30,7 @@
   box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.1);
   animation: fadeIn 0.7s forwards;
   align-items: vertical;
-  overflow-y:auto; 
+   
   width:100%;
   height:100%;
   
@@ -145,8 +145,8 @@ h1 {
 }
 
 
-.button-selection button:hover {
-  transform: scale(1.01) translateY(-1px);
+.button-selections button:hover {
+  transform: scale(1.1) translateY(-1px);
   background-color: #c7d1e2ed;
   box-shadow: 0px 5px 30px rgba(0, 0, 0, 0.2);
 }
@@ -311,6 +311,21 @@ h1 {
   padding: 8px;
   outline: none;
 }
+
+.customer-container .textSize{
+  
+  position:sticky;
+  z-index: 1000;  
+ margin-left: 800px;
+ margin-top: 40px;
+
+
+
+}
+
+
+
+
 
 
 

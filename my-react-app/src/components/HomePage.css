@@ -53,14 +53,14 @@
 
 .textSize {
   position: absolute;
-  top:20px;
+  top:25px;
   right:110px;
 }
 
 .textSize button {
-  background-color: rgb(97, 97, 97);
+  background-color: rgb(45, 144, 55);
 }
 
 .textSize button:hover {
-  background-color: #3c3c3d;
+  background-color: rgb(5, 88, 5);
 }
