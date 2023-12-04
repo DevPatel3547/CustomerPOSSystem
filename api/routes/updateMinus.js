@@ -74,7 +74,7 @@ router.post('/', (req, res) => {
 
     pool
         .query(query)
-        .then(res.json({ title: 'POST request successful', data: requestData }));
+        .then(res.json({ title: 'POST request successful', data: requestData, query: query }));
 
 });
 
