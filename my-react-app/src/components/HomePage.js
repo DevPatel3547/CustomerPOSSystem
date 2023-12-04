@@ -14,45 +14,7 @@ const HomePage = () => {
 
   const increaseFontSize = () => setMultiplier(multiplier + 0.1);
   const decreaseFontSize = () => setMultiplier(multiplier - 0.1);
-  // useEffect(() => {
-  //   const googleTranslateScriptId = 'google-translate-script';
-  //   let scriptExists = document.getElementById(googleTranslateScriptId);
   
-  //   if (!scriptExists) {
-  //     try {
-  //       const script = document.createElement('script');
-  //       script.id = googleTranslateScriptId;
-  //       script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
-  //       script.defer = true;
-  //       document.body.appendChild(script);
-  //     } catch (error) {
-  //       console.error("Error loading Google Translate script:", error);
-  //     }
-  //   }
-  
-  //   window.googleTranslateElementInit = function() {
-  //     try {
-  //       if (window.google && window.google.translate && !document.querySelector('.goog-te-combo')) {
-  //         new window.google.translate.TranslateElement({ pageLanguage: 'en' }, 'google_translate_element');
-  //       }
-  //     } catch (error) {
-  //       console.error("Error initializing Google Translate:", error);
-  //     }
-  //   };
-  
-  //   return () => {
-  //     // Cleanup
-  //     const script = document.getElementById(googleTranslateScriptId);
-  //     if (script) {
-  //       document.body.removeChild(script);
-  //     }
-  //     const translateEl = document.getElementById('google_translate_element');
-  //     if (translateEl) {
-  //       translateEl.innerHTML = '';
-  //     }
-  //   };
-  // }, []);
-
   return (
     <div className="homepage">
     <div className="textSize">
