@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Container, Table, Button, Modal, Form, Card } from 'react-bootstrap';
@@ -15,6 +15,25 @@ const Menu = ({ cart, setCart }) => {
   const [showCart, setShowCart] = useState(false); 
   const [multiplier, setMultiplier] = useState(1); // Start with no scaling
 
+  const [brownSugarDrinks, setBrownSugarDrinks] = useState([]);
+  const [brewTeaDrinks, setBrewTeaDrinks] = useState([]);
+  const [luluDrinks, setLuluDrinks] = useState([]);
+  const [snowVelvetDrinks, setSnowVelvetDrinks] = useState([]);
+  const [milkTeaDrinks, setmilkTeaDrinks] = useState([]);
+  const [naDrinks, setnaDrinks] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  
+  const drinkRefs = useRef({});
+
+  const scrollToItem = () => {
+    const foundKey = Object.keys(drinkRefs.current).find(name => 
+      name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    if (foundKey && drinkRefs.current[foundKey]) {
+      drinkRefs.current[foundKey].scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
 
   useEffect(() => {
     // Update the CSS variable when the multiplier changes
@@ -27,6 +46,7 @@ const Menu = ({ cart, setCart }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        let brownSugarDrinks = [], brewTeaDrinks = [], luluDrinks = [], snowVelvetDrinks = [], milkTeaDrinks = [], naDrinks = [];
         const response = await axios.get('https://project-3-team910-10b-backend.onrender.com/gettable/menu');
         const drinks = response.data.filter(item => item.type === 'Drink');
         const toppings = response.data.filter(item => item.type === 'Topping');
@@ -38,12 +58,40 @@ const Menu = ({ cart, setCart }) => {
           initialQuantities[drink.name_of_item] = 0;
           initialToppings[drink.name_of_item] = '';
           drink.ingredients = drink.ingredients;
+          const ingredients = drink.ingredients.toLowerCase();
+          if (ingredients.includes("brown sugar")) {
+            brownSugarDrinks.push(drink);
+          } else if (ingredients.includes("brew tea")) {
+            brewTeaDrinks.push(drink);
+          } else if (ingredients.includes("lulu")) {
+            luluDrinks.push(drink);
+          } else if (ingredients.includes("snow velvet")) {
+            snowVelvetDrinks.push(drink);
+          } else if (ingredients.includes("milk tea")) {
+            milkTeaDrinks.push(drink);
+          } else {
+            naDrinks.push(drink);
+          }
+          
         });
+        setBrownSugarDrinks(brownSugarDrinks);
+        setBrewTeaDrinks(brewTeaDrinks);
+        setLuluDrinks(luluDrinks);
+        setSnowVelvetDrinks(snowVelvetDrinks);
+        setmilkTeaDrinks(milkTeaDrinks);
+        setnaDrinks(naDrinks);
+       
+        
         setQuantities(initialQuantities);
         setSelectedToppings(initialToppings);
+        // ... existing code to fetch data ...
+    // Group drinks based on ingredients
+    // let brownSugarDrinks = [], brewTeaDrinks = [], luluDrinks = [], snowVelvetDrinks = [], milkTeaDrinks = [], naDrinks = [];
       } catch (error) {
         console.error('Error fetching data: ', error);
       }
+      
+      console.log(brownSugarDrinks);
     };
 
     fetchData();
@@ -185,6 +233,8 @@ const Menu = ({ cart, setCart }) => {
     setCart(updatedCart);
   };
 
+
+
   
   
 
@@ -200,12 +250,27 @@ const Menu = ({ cart, setCart }) => {
     <button onClick={increaseFontSize}>+ Font Size</button>
       <button onClick={decreaseFontSize}>- Font Size</button>
       </div>
+      <div className="search-bar">
+        <Form.Control
+          type="text"
+          placeholder="Search for a drink..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          onKeyPress={(e) => {
+            if (e.key === 'Enter') {
+              scrollToItem();
+            }
+          }}
+        />
+      </div>
 
       <h1 className="text-center mb-4">Drinks Menu</h1>
       
+      <h2 className='categoryTitle'>Brown Sugar Drinks</h2>
       <div className="drink-cards">
-        {menuItems.map((drink) => (
-          <Card key={drink.name_of_item} className="drink-card">
+    
+        {brownSugarDrinks.map((drink) => (
+          <Card key={drink.name_of_item} className="drink-card" ref={el => drinkRefs.current[drink.name_of_item] = el}>
             <Card.Body>
               <Card.Title>{drink.name_of_item}</Card.Title>
               <Card.Text>Price: ${drink.cost_of_item}</Card.Text>
@@ -221,6 +286,104 @@ const Menu = ({ cart, setCart }) => {
           </Card>
         ))}
       </div>
+      <h2 className='categoryTitle'>Brew Tea Drinks</h2>
+      <div className="drink-cards">
+      
+        {brewTeaDrinks.map((drink) => (
+          <Card key={drink.name_of_item} className="drink-card" ref={el => drinkRefs.current[drink.name_of_item] = el}>
+            <Card.Body>
+              <Card.Title>{drink.name_of_item}</Card.Title>
+              <Card.Text>Price: ${drink.cost_of_item}</Card.Text>
+              {quantities[drink.name_of_item] > 0 ? (
+                <div className="quantity-control">
+                  {quantities[drink.name_of_item]}
+                  <Button className="qty-btn" onClick={() => handleQuantityChange(drink.name_of_item, true)}>+</Button>
+                </div>
+              ) : (
+                <Button className="add-btn" onClick={() => handleAddClick(drink.name_of_item)}>Add</Button>
+              )}
+            </Card.Body>
+          </Card>
+        ))}
+      </div>
+      <h2 className='categoryTitle'>Lulu Drinks</h2>
+      <div className="drink-cards">
+      
+        {luluDrinks.map((drink) => (
+          <Card key={drink.name_of_item} className="drink-card" ref={el => drinkRefs.current[drink.name_of_item] = el}>
+            <Card.Body>
+              <Card.Title>{drink.name_of_item}</Card.Title>
+              <Card.Text>Price: ${drink.cost_of_item}</Card.Text>
+              {quantities[drink.name_of_item] > 0 ? (
+                <div className="quantity-control">
+                  {quantities[drink.name_of_item]}
+                  <Button className="qty-btn" onClick={() => handleQuantityChange(drink.name_of_item, true)}>+</Button>
+                </div>
+              ) : (
+                <Button className="add-btn" onClick={() => handleAddClick(drink.name_of_item)}>Add</Button>
+              )}
+            </Card.Body>
+          </Card>
+        ))}
+      </div>
+      <h2 className='categoryTitle'>Snow Velvet Drinks</h2>
+      <div className="drink-cards">
+        {snowVelvetDrinks.map((drink) => (
+          <Card key={drink.name_of_item} className="drink-card" ref={el => drinkRefs.current[drink.name_of_item] = el}>
+            <Card.Body>
+              <Card.Title>{drink.name_of_item}</Card.Title>
+              <Card.Text>Price: ${drink.cost_of_item}</Card.Text>
+              {quantities[drink.name_of_item] > 0 ? (
+                <div className="quantity-control">
+                  {quantities[drink.name_of_item]}
+                  <Button className="qty-btn" onClick={() => handleQuantityChange(drink.name_of_item, true)}>+</Button>
+                </div>
+              ) : (
+                <Button className="add-btn" onClick={() => handleAddClick(drink.name_of_item)}>Add</Button>
+              )}
+            </Card.Body>
+          </Card>
+        ))}
+      </div>
+      
+      <h2 className='categoryTitle'>Milk Tea Drinks</h2>
+      <div className="drink-cards">
+        {milkTeaDrinks.map((drink) => (
+          <Card key={drink.name_of_item} className="drink-card" ref={el => drinkRefs.current[drink.name_of_item] = el}>
+            <Card.Body>
+              <Card.Title>{drink.name_of_item}</Card.Title>
+              <Card.Text>Price: ${drink.cost_of_item}</Card.Text>
+              {quantities[drink.name_of_item] > 0 ? (
+                <div className="quantity-control">
+                  {quantities[drink.name_of_item]}
+                  <Button className="qty-btn" onClick={() => handleQuantityChange(drink.name_of_item, true)}>+</Button>
+                </div>
+              ) : (
+                <Button className="add-btn" onClick={() => handleAddClick(drink.name_of_item)}>Add</Button>
+              )}
+            </Card.Body>
+          </Card>
+        ))}
+      </div>
+      <h2 className='categoryTitle'>Other Drinks</h2>
+      <div className="drink-cards">
+        {naDrinks.map((drink) => (
+          <Card key={drink.name_of_item} className="drink-card"  ref={el => drinkRefs.current[drink.name_of_item] = el}>
+            <Card.Body>
+              <Card.Title>{drink.name_of_item}</Card.Title>
+              <Card.Text>Price: ${drink.cost_of_item}</Card.Text>
+              {quantities[drink.name_of_item] > 0 ? (
+                <div className="quantity-control">
+                  {quantities[drink.name_of_item]}
+                  <Button className="qty-btn" onClick={() => handleQuantityChange(drink.name_of_item, true)}>+</Button>
+                </div>
+              ) : (
+                <Button className="add-btn" onClick={() => handleAddClick(drink.name_of_item)}>Add</Button>
+              )}
+            </Card.Body>
+          </Card>
+        ))}
+      </div> 
 
   
 
