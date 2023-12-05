@@ -22,6 +22,10 @@ const Menu = ({ cart, setCart }) => {
   const [milkTeaDrinks, setmilkTeaDrinks] = useState([]);
   const [naDrinks, setnaDrinks] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [sugarLevel, setSugarLevel] = useState("regular");
+  const [iceLevel, setIceLevel] = useState("regular ice");
+  const [isEditing, setIsEditing] = useState(false);
+  const [editingItemId, setEditingItemId] = useState(null);
   
   const drinkRefs = useRef({});
 
@@ -159,24 +163,61 @@ const Menu = ({ cart, setCart }) => {
         id: itemId,
         name: drinkName,
         topping: topping,
+        sugarLevel: sugarLevel,
+        iceLevel: iceLevel,
         quantity: newQuantity,
         cost: menuItems.find(item => item.name_of_item === drinkName).cost_of_item,
         ingredients: menuItems.find(item => item.name_of_item === drinkName).ingredients
       };
       setCart([...cart, newItem]);
+      setSugarLevel("regular");
+      setIceLevel("regular ice");
     }
   };
   
           
   const handleToppingDone = () => {
-    if (!selectedToppings[selectedDrink] || selectedToppings[selectedDrink].length === 0) {
-      alert('Please select at least one topping.');
-      return;
+    if (isEditing) {
+        // Handle updating an existing item
+        const updatedCart = cart.map(item => {
+            if (item.id === editingItemId) {
+                return {
+                    ...item,
+                    topping: selectedToppings[selectedDrink].join(', '),
+                    sugarLevel: sugarLevel,
+                    iceLevel: iceLevel
+                };
+            }
+            return item;
+        });
+
+        setCart(updatedCart);
+        setShowCart(true);
+    } else {
+        // Handle adding a new item
+        addToCart();
     }
+
+    // Reset and close modal
+    resetSelections();
     setShowToppingsModal(false);
-    addToCart();
+    setIsEditing(false); // Reset the editing state
+};
+
+const handleCloseCart = () => {
+  if (!isEditing) {
+      setShowCart(false);
+  }
+};
+
+const resetSelections = () => {
     setSelectedDrink(null);
-  };
+    setSelectedToppings({});
+    setSugarLevel('regular');
+    setIceLevel('regular ice');
+    setIsEditing(false);
+    setEditingItemId(null);
+};
   
 
   const addToCart = () => {
@@ -233,6 +274,42 @@ const Menu = ({ cart, setCart }) => {
     setCart(updatedCart);
   };
 
+  const handleEditDone = () => {
+    // Update the item in the cart
+    const updatedCart = cart.map(item => {
+        if (item.id === `${selectedDrink}-${selectedToppings[selectedDrink].join(', ')}`) {
+            return {
+                ...item,
+                topping: selectedToppings[selectedDrink].join(', '),
+                sugarLevel: sugarLevel,
+                iceLevel: iceLevel
+            };
+        }
+        return item;
+    });
+
+    setCart(updatedCart);
+    setShowToppingsModal(true);
+    // Reset selections
+    setSelectedDrink(null);
+    setSelectedToppings({});
+    setSugarLevel('regular');
+    setIceLevel('regular ice');
+};
+const handleEditClick = (itemId) => {
+  const itemToEdit = cart.find(item => item.id === itemId);
+  if (itemToEdit) {
+      setSelectedDrink(itemToEdit.name);
+      setSelectedToppings({ [itemToEdit.name]: itemToEdit.topping.split(', ') });
+      setSugarLevel(itemToEdit.sugarLevel);
+      setIceLevel(itemToEdit.iceLevel);
+      setIsEditing(true);
+      setEditingItemId(itemId);
+      setShowToppingsModal(true);
+      setShowCart(false);
+  }
+};
+
 
 
   
@@ -250,6 +327,7 @@ const Menu = ({ cart, setCart }) => {
     <button onClick={increaseFontSize}>+ Font Size</button>
       <button onClick={decreaseFontSize}>- Font Size</button>
       </div>
+
       <div className="search-bar">
         <Form.Control
           type="text"
@@ -403,6 +481,24 @@ const Menu = ({ cart, setCart }) => {
               </div>
             ))}
           </div>
+          <Form.Group>
+    <Form.Label>Sugar Level</Form.Label>
+    <Form.Control as="select" value={sugarLevel} onChange={(e) => setSugarLevel(e.target.value)}>
+      <option value="0%">0%</option>
+      <option value="50%">50%</option>
+      <option value="regular">Regular</option>
+      <option value="120%">120%</option>
+    </Form.Control>
+  </Form.Group>
+
+  <Form.Group>
+    <Form.Label>Ice Level</Form.Label>
+    <Form.Control as="select" value={iceLevel} onChange={(e) => setIceLevel(e.target.value)}>
+      <option value="no ice">No Ice</option>
+      <option value="lite ice">Lite Ice</option>
+      <option value="regular ice">Regular Ice</option>
+    </Form.Control>
+  </Form.Group>
           <div className="modal-actions">
             <Button variant="success" onClick={handleToppingDone}>Done</Button>
             <Button variant="secondary" onClick={() => setShowToppingsModal(false)}>Cancel</Button>
@@ -422,14 +518,19 @@ const Menu = ({ cart, setCart }) => {
                   <th>Drink</th>
                   <th>Topping</th>
                   <th>Quantity</th>
+                  <th>Sugar Level</th>
+                  <th>Ice Level</th>
                   <th>Price</th>
                 </tr>
               </thead>
               <tbody>
                 {cart.map((item) => (
                   <tr key={item.id}>
+                     <Button variant="outline-secondary" onClick={() => handleEditClick(item.id)}>Edit</Button>
                     <td>{item.name}</td>
                     <td>{item.topping}</td>
+                    <td>{item.sugarLevel}</td> 
+                    <td>{item.iceLevel}</td>   
                     <td>
                       <button onClick={() => handleQuantityUpdate(item.id, false)}>-</button>
                       {item.quantity}

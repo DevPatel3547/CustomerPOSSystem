@@ -164,7 +164,7 @@ label {
 
 .cart-modal .modal-content {
   width: 90%;
-  max-width: 600px;
+  max-width: 900px;
 }
 
 /* Additional styles for the cart table */
@@ -262,4 +262,9 @@ h1.text-center {
   font-family: 'Comic Sans MS', cursive, sans-serif;
   font-weight: bold;
   padding-top: 20px;
+}
+
+.search-bar{
+  width: 500px;
+  align-self: center;
 }
