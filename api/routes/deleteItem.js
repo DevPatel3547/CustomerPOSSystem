@@ -14,7 +14,7 @@ const pool = new Pool({
 
 process.on('SIGINT', function() {
     pool.end();
-    console.log('\nupdateMinus pool successfully shut down');
+    console.log('\ndeleteItem pool successfully shut down');
     process.exit(0);
 });
 
@@ -44,37 +44,19 @@ const data = {
 */
 
 router.post('/', (req, res) => {
-    console.log('updateMinus');
-    const requestData = req.body;
-    console.log(req.body.table);
+    console.log('deleteItem');
+    console.log('Table: ' + req.body.table);
     console.log('Identifier: ' + req.body.identify);
     console.log('Identify Key: ' + req.body.identifyKey);
 
-    let names = Object.getOwnPropertyNames(requestData);
-    names.shift();
-    names.pop();
-    names.pop();
-    console.log(names);
-
-    let values = Object.values(requestData);
-    values.shift();
-    values.pop();
-    values.pop();
-    console.log(values);
-
-    let query = 'UPDATE ' + req.body.table + ' SET ';
-    for (let i = 0; i < names.length - 1; i++) {
-        query += names[i] + ` = ` + names[i] + ` - ` + values[i] + `, `;
-    }
-    query += names[names.length - 1] + ` = ` + names[names.length - 1] + ` - ` + values[values.length - 1];
-    query += ` WHERE ` + req.body.identify + ` = '` + req.body.identifyKey + `';`;
+    let query = 'DELETE FROM ' + req.body.table + ' WHERE ' + req.body.identify + ` = '` + req.body.identifyKey + `';`;
     console.log(query);
     
     // res.send(query);
 
     pool
         .query(query)
-        .then(res.json({ title: 'POST request successful', data: requestData, query: query }));
+        .then(res.json({ title: 'POST request successful', query: query }));
 
 });
 

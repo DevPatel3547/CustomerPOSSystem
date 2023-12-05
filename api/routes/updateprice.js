@@ -18,7 +18,7 @@ process.on('SIGINT', function() {
     process.exit(0);
 });
 
-router.post('/updateprice', (req, res) => {
+router.post('/', (req, res) => {
     console.log('updatePrice');
     const { table, cost_of_item, identify, identifyKey } = req.body;
 

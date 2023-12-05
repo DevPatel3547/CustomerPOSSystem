@@ -8,6 +8,7 @@ const EditMenu = () => {
     const [showEditModal, setShowEditModal] = useState(false);
     const [currentItem, setCurrentItem] = useState(null);
     const [newPrice, setNewPrice] = useState('');
+    const [newName, setNewName] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,26 +25,30 @@ const EditMenu = () => {
   const handleEdit = (item) => {
     setCurrentItem(item);
     setNewPrice(item.cost_of_item.toString());
+    setNewName(item.name_of_item); // Set the new name
     setShowEditModal(true);
   };
 
+
   const saveChanges = async () => {
     try {
-      await axios.post('http://localhost:9000/updateprice', {
-        table: 'menu', // Replace with your actual table name
-        cost_of_item: newPrice,
-        identify: 'name_of_item', // Replace with your actual identifier column name
+      await axios.post('http://localhost:9000/updateitem', {
+        table: 'menu',
+        newName: newName, 
+        newPrice: newPrice,
+        identify: 'name_of_item',
         identifyKey: currentItem.name_of_item
       });
+      // Update the local state with new name and price
       setMenuItems(items => 
         items.map(item => 
-          item.name_of_item === currentItem.name_of_item ? { ...item, cost_of_item: newPrice } : item
+          item.name_of_item === currentItem.name_of_item ? { ...item, name_of_item: newName, cost_of_item: newPrice } : item
         )
       );
       setShowEditModal(false);
     } catch (error) {
-      console.error('Error updating price:', error);
-      // Handle error (e.g., show error message)
+      console.error('Error updating item:', error);
+      // Handle error
     }
   };
 
@@ -74,14 +79,22 @@ const EditMenu = () => {
           <Modal.Title>Edit Price</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form.Group>
-            <Form.Label>New Price for {currentItem?.name_of_item}</Form.Label>
-            <Form.Control 
+          <div>
+            <label>New Name for {currentItem?.name_of_item}</label>
+            <input 
+              type="text" 
+              value={newName} 
+              onChange={(e) => setNewName(e.target.value)}
+            />
+          </div>
+          <div>
+            <label>New Price for {currentItem?.name_of_item}</label>
+            <input 
               type="number" 
               value={newPrice} 
               onChange={(e) => setNewPrice(e.target.value)}
             />
-          </Form.Group>
+          </div>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={() => setShowEditModal(false)}>
