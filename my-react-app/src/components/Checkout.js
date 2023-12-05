@@ -16,12 +16,12 @@ const Checkout = ({ cart }) => {
         return [...allIngredients, ...toppingsList].map(ingredientOrTopping => {
           const data = {
             table: 'inventory',
-            name: ingredientOrTopping,
+            //name: ingredientOrTopping,
             quantity: item.quantity.toString(),
             identify: 'name',
             identifyKey: ingredientOrTopping
           };
-          return axios.post('https://project-3-team910-10b-backend.onrender.com/updateTable', data);
+          return axios.post('http://localhost:9000/updateMinus', data);
         });
       });
 
