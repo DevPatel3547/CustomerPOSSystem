@@ -24,7 +24,7 @@ const HomePage = () => {
       <div className="central-image">
         <h1 style={{color: 'white'}} className="titles">The Alley</h1>
         <div className="nav-options">
-          <span onClick={() => navigate('/manager')}>Manager</span>
+          <span onClick={() => navigate('/managerLogin')}>Manager</span>
           <span onClick={() => navigate('/customer')}>Customer</span>
           <span onClick={() => navigate('/login')}>Cashier</span>
           <span onClick={() => navigate('/menu-board')}>Menu Board</span>
