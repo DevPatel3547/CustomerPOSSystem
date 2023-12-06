@@ -11,6 +11,8 @@ import MenuBoard from './components/menuboard';
 import Manager from './components/Manager';
 import OrderHistory from './components/OrderHistory';
 import EditMenu from './components/EditMenu';
+import Inventory from './components/Inventory';
+import InventoryCheckout from './components/InventoryCheckout';
 
 
 function App() {
@@ -32,6 +34,8 @@ function App() {
           <Route path="/manager" element={<Manager />} />
           <Route path="/OrderHistory" element={<OrderHistory />} />
           <Route path="/EditMenu" element={<EditMenu />} />
+          <Route path="/Inventory" element={<Inventory />} />
+          <Route path="/InventoryCheckout" element={<InventoryCheckout />} />
         </Routes>
         
       </div>

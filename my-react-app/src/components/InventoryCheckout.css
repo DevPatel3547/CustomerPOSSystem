@@ -1,0 +1,50 @@
+.inventory-checkout-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+  }
+  
+  .inventory-checkout-container h1 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .inventory-checkout-container ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .inventory-checkout-container li {
+    border-bottom: 1px solid #eee;
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .inventory-checkout-container li:last-child {
+    border-bottom: none;
+  }
+  
+  .inventory-checkout-container button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block;
+    width: 100%;
+    margin-top: 20px;
+    font-size: 16px;
+  }
+  
+  .inventory-checkout-container button:hover {
+    background-color: #0056b3;
+  }
+  
