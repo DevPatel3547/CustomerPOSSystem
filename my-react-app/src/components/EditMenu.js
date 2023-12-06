@@ -67,44 +67,43 @@ const EditMenu = () => {
             <Card.Body>
               <Card.Title>{item.name_of_item}</Card.Title>
               <Card.Text>Price: ${item.cost_of_item}</Card.Text>
-              <Button variant="primary" onClick={() => handleEdit(item)}>Edit</Button> {/* Pass the entire item */}
+              <Button variant="primary" onClick={() => handleEdit(item)}>Edit</Button>
               <Button variant="danger" onClick={() => handleRemove(item.name_of_item)}>Remove</Button>
             </Card.Body>
           </Card>
         ))}
       </div>
 
-      <Modal show={showEditModal} onHide={() => setShowEditModal(false)}>
-        <Modal.Header closeButton>
-          <Modal.Title>Edit Price</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <div>
-            <label>New Name for {currentItem?.name_of_item}</label>
-            <input 
-              type="text" 
-              value={newName} 
-              onChange={(e) => setNewName(e.target.value)}
-            />
+      {showEditModal && (
+        <div className="custom-modal">
+          <div className="custom-modal-content">
+            <span className="custom-modal-close" onClick={() => setShowEditModal(false)}>&times;</span>
+            <h4>Edit Item: {currentItem?.name_of_item}</h4>
+            <div className="custom-modal-body">
+              <label>New Name</label>
+              <input 
+                type="text" 
+                value={newName} 
+                onChange={(e) => setNewName(e.target.value)}
+              />
+              <label>New Price</label>
+              <input 
+                type="number" 
+                value={newPrice} 
+                onChange={(e) => setNewPrice(e.target.value)}
+              />
+            </div>
+            <div className="custom-modal-footer">
+              <Button variant="secondary" onClick={() => setShowEditModal(false)}>
+                Close
+              </Button>
+              <Button variant="primary" onClick={saveChanges}>
+                Save Changes
+              </Button>
+            </div>
           </div>
-          <div>
-            <label>New Price for {currentItem?.name_of_item}</label>
-            <input 
-              type="number" 
-              value={newPrice} 
-              onChange={(e) => setNewPrice(e.target.value)}
-            />
-          </div>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowEditModal(false)}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={saveChanges}>
-            Save Changes
-          </Button>
-        </Modal.Footer>
-      </Modal>
+        </div>
+      )}
     </Container>
   );
 };

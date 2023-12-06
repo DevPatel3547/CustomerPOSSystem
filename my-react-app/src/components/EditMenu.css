@@ -50,3 +50,52 @@
     background-color: #dc3545;
   }
   
+
+  .custom-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1050;
+  }
+  
+  .custom-modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    width: 400px;
+  }
+  
+  .custom-modal-close {
+    float: right;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+  
+  .custom-modal-body {
+    margin-top: 20px;
+  }
+  
+  .custom-modal-body label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .custom-modal-body input {
+    width: 100%;
+    padding: 5px 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .custom-modal-footer {
+    display: flex;
+    justify-content: flex-end;
+  }
+  

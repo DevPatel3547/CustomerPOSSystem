@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Container, Card, Button } from 'react-bootstrap';
@@ -9,14 +9,53 @@ const MenuBoard = () => {
   const [menuItems, setMenuItems] = useState([]);
   const [toppings, setToppings] = useState([]);
 
+  ///////////////////
+  const [brownSugarDrinks, setBrownSugarDrinks] = useState([]);
+  const [brewTeaDrinks, setBrewTeaDrinks] = useState([]);
+  const [luluDrinks, setLuluDrinks] = useState([]);
+  const [snowVelvetDrinks, setSnowVelvetDrinks] = useState([]);
+  const [milkTeaDrinks, setmilkTeaDrinks] = useState([]);
+  const [naDrinks, setnaDrinks] = useState([]);
+  const drinkRefs = useRef({});
+  ///////////////////
+
   useEffect(() => {
     const fetchData = async () => {
       try {
+        ///////////////////
+        let brownSugarDrinks = [], brewTeaDrinks = [], luluDrinks = [], snowVelvetDrinks = [], milkTeaDrinks = [], naDrinks = [];
+        ///////////////////
         const response = await axios.get('https://project-3-team910-10b-backend.onrender.com/gettable/menu');
         const drinks = response.data.filter(item => item.type === 'Drink');
         const toppingItems = response.data.filter(item => item.type === 'Topping');
         setMenuItems(drinks);
         setToppings(toppingItems);
+        ///////////////////
+        drinks.forEach(drink => {
+          drink.ingredients = drink.ingredients;
+          const ingredients = drink.ingredients.toLowerCase();
+          if (ingredients.includes("brown sugar")) {
+            brownSugarDrinks.push(drink);
+          } else if (ingredients.includes("brew tea")) {
+            brewTeaDrinks.push(drink);
+          } else if (ingredients.includes("lulu")) {
+            luluDrinks.push(drink);
+          } else if (ingredients.includes("snow velvet")) {
+            snowVelvetDrinks.push(drink);
+          } else if (ingredients.includes("milk tea")) {
+            milkTeaDrinks.push(drink);
+          } else {
+            naDrinks.push(drink);
+          }
+          
+        });
+        setBrownSugarDrinks(brownSugarDrinks);
+        setBrewTeaDrinks(brewTeaDrinks);
+        setLuluDrinks(luluDrinks);
+        setSnowVelvetDrinks(snowVelvetDrinks);
+        setmilkTeaDrinks(milkTeaDrinks);
+        setnaDrinks(naDrinks);
+        ///////////////////
       } catch (error) {
         console.error('Error fetching data: ', error);
       }
@@ -92,32 +131,140 @@ const MenuBoard = () => {
         <Button variant="secondary" onClick={() => navigate('/')}>Back</Button>
       </div>
       <div className="MenuBoardTitle">Menu Board</div>
+
+
       <div className="ItemTypeHeader">
         Drinks
       </div>
-      <div className="menuBoard">
-        {menuItems.map((drink) => (
-          <Card key={drink.name_of_item} className="itemCard">
+
+
+      <div className='categoryTitle'>Brown Sugar Drinks</div>
+      <div className="drink-cards">
+    
+        {brownSugarDrinks.map((drink) => (
+          <Card key={drink.name_of_item} className="drink-card" ref={el => drinkRefs.current[drink.name_of_item] = el}>
             <Card.Body>
-            <Card.Img 
-      variant="top" 
-      src={`/drinkImages/${drinkImageMap[drink.name_of_item] || 'default.png'}`}
-      alt={drink.name_of_item}
-      style={{ height: '200px', width: '100%', objectFit: 'cover' }} // Adjust height as needed
-    />
-              <Card.Title >{drink.name_of_item}</Card.Title>
-              <Card.Text>
-                Price: ${drink.cost_of_item}
-              </Card.Text>
+              <Card.Img 
+                variant="top" 
+                src={`/drinkImages/${drinkImageMap[drink.name_of_item] || 'default.png'}`}
+                alt={drink.name_of_item}
+                style={{ height: '200px', width: '100%', objectFit: 'cover' }} // Adjust height as needed
+              />
+              
+              <Card.Title>{drink.name_of_item}</Card.Title>
+              <Card.Text>Price: ${drink.cost_of_item}</Card.Text>
             </Card.Body>
           </Card>
         ))}
       </div>
 
+      <div className='categoryTitle'>Brew Tea Drinks</div>
+      <div className="drink-cards">
+    
+        {brewTeaDrinks.map((drink) => (
+          <Card key={drink.name_of_item} className="drink-card" ref={el => drinkRefs.current[drink.name_of_item] = el}>
+            <Card.Body>
+              <Card.Img 
+                variant="top" 
+                src={`/drinkImages/${drinkImageMap[drink.name_of_item] || 'default.png'}`}
+                alt={drink.name_of_item}
+                style={{ height: '200px', width: '100%', objectFit: 'cover' }} // Adjust height as needed
+              />
+              
+              <Card.Title>{drink.name_of_item}</Card.Title>
+              <Card.Text>Price: ${drink.cost_of_item}</Card.Text>
+            </Card.Body>
+          </Card>
+        ))}
+      </div>
+
+      <div className='categoryTitle'>Lulu Drinks</div>
+      <div className="drink-cards">
+    
+        {luluDrinks.map((drink) => (
+          <Card key={drink.name_of_item} className="drink-card" ref={el => drinkRefs.current[drink.name_of_item] = el}>
+            <Card.Body>
+              <Card.Img 
+                variant="top" 
+                src={`/drinkImages/${drinkImageMap[drink.name_of_item] || 'default.png'}`}
+                alt={drink.name_of_item}
+                style={{ height: '200px', width: '100%', objectFit: 'cover' }} // Adjust height as needed
+              />
+              
+              <Card.Title>{drink.name_of_item}</Card.Title>
+              <Card.Text>Price: ${drink.cost_of_item}</Card.Text>
+            </Card.Body>
+          </Card>
+        ))}
+      </div>
+
+      <div className='categoryTitle'>Snow Velvet Drinks</div>
+      <div className="drink-cards">
+    
+        {snowVelvetDrinks.map((drink) => (
+          <Card key={drink.name_of_item} className="drink-card" ref={el => drinkRefs.current[drink.name_of_item] = el}>
+            <Card.Body>
+              <Card.Img 
+                variant="top" 
+                src={`/drinkImages/${drinkImageMap[drink.name_of_item] || 'default.png'}`}
+                alt={drink.name_of_item}
+                style={{ height: '200px', width: '100%', objectFit: 'cover' }} // Adjust height as needed
+              />
+              
+              <Card.Title>{drink.name_of_item}</Card.Title>
+              <Card.Text>Price: ${drink.cost_of_item}</Card.Text>
+            </Card.Body>
+          </Card>
+        ))}
+      </div>
+
+      <div className='categoryTitle'>Milk Tea Drinks</div>
+      <div className="drink-cards">
+    
+        {milkTeaDrinks.map((drink) => (
+          <Card key={drink.name_of_item} className="drink-card" ref={el => drinkRefs.current[drink.name_of_item] = el}>
+            <Card.Body>
+              <Card.Img 
+                variant="top" 
+                src={`/drinkImages/${drinkImageMap[drink.name_of_item] || 'default.png'}`}
+                alt={drink.name_of_item}
+                style={{ height: '200px', width: '100%', objectFit: 'cover' }} // Adjust height as needed
+              />
+              
+              <Card.Title>{drink.name_of_item}</Card.Title>
+              <Card.Text>Price: ${drink.cost_of_item}</Card.Text>
+            </Card.Body>
+          </Card>
+        ))}
+      </div>
+
+      <div className='categoryTitle'>Other Drinks</div>
+      <div className="drink-cards">
+    
+        {naDrinks.map((drink) => (
+          <Card key={drink.name_of_item} className="drink-card" ref={el => drinkRefs.current[drink.name_of_item] = el}>
+            <Card.Body>
+              <Card.Img 
+                variant="top" 
+                src={`/drinkImages/${drinkImageMap[drink.name_of_item] || 'default.png'}`}
+                alt={drink.name_of_item}
+                style={{ height: '200px', width: '100%', objectFit: 'cover' }} // Adjust height as needed
+              />
+              
+              <Card.Title>{drink.name_of_item}</Card.Title>
+              <Card.Text>Price: ${drink.cost_of_item}</Card.Text>
+            </Card.Body>
+          </Card>
+        ))}
+      </div>
+
+
+
       <div className="ItemTypeHeader">
         Toppings
       </div>
-      <div className="menuBoard">
+
+      <div className="drink-cards">
         {toppings.map((topping) => (
           <Card key={topping.name_of_item} className="itemCard">
             <Card.Body>
