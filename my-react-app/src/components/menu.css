@@ -32,7 +32,7 @@
   border: 7px solid #fff7f7; /* Adding a border instead of background */
   border-radius: 10px;
   padding: 40px;
-  background-image: url('C:\Users\jdpay\CSCE_315\Project3\testScriptErrors\project-3-910_10b\my-react-app\src\components\swirl-designs-png-1.png');
+  background-image: url('swirl-designs-png-1.png');
 }
 
 .drink-card {
