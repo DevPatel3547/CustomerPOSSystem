@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 const { Pool } = require('pg')
 const dotenv = require('dotenv').config();
-
 const pool = new Pool({
     user: process.env.PSQL_USER,
     host: process.env.PSQL_HOST,
@@ -14,29 +13,31 @@ const pool = new Pool({
 
 process.on('SIGINT', function() {
     pool.end();
-    console.log('\nupdateTable pool successfully shut down');
+    console.log('\ninsertInto pool successfully shut down');
     process.exit(0);
 });
 
-router.post('/updateprice', (req, res) => {
-    console.log('updatePrice');
-    const { table, cost_of_item, identify, identifyKey } = req.body;
 
-    console.log(`Updating price to: ${cost_of_item}`); // Log the price being set
+router.post('/', (req, res) => {
+    console.log('InsertInto');
+    const requestData = req.body;
+    console.log(req.body.table);
 
-    let query = `UPDATE ${table} SET cost_of_item = '${cost_of_item}' WHERE ${identify} = '${identifyKey}';`;
-    console.log(query);
-    
-    pool.query(query)
-        .then(() => res.json({ title: 'Price update successful' }))
-        .catch(err => {
-            console.error(err);
-            res.status(500).json({ title: 'Error updating price' });
-        });
+    let names = Object.getOwnPropertyNames(requestData);
+    names.shift();
+    names = '(' + names.toString() + ')';
+    console.log(names);
+
+    let temp = Object.values(requestData);
+    temp.shift();
+    let values = temp.map(val => "'" + val + "'");
+    values = '(' + values.toString() + ')';
+    console.log(values);
+
+    console.log('INSERT INTO ' + req.body.table + ' ' + names + ' VALUES ' + values + ';');
+
+    pool
+        .query('INSERT INTO ' + req.body.table + ' ' + names + ' VALUES ' + values + ';')
+        .then(res.json({ title: 'POST request successful', data: requestData }));
+
 });
-
-
-
-
-
-module.exports = router;
