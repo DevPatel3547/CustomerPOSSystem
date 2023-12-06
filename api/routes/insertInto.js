@@ -41,3 +41,5 @@ router.post('/', (req, res) => {
         .then(res.json({ title: 'POST request successful', data: requestData }));
 
 });
+
+module.exports = router;
