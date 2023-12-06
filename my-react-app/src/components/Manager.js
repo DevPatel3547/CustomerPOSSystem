@@ -3,7 +3,6 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Manager.css';
 
-
 const Manager = () => {
     let navigate = useNavigate();
     return (

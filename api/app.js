@@ -16,6 +16,7 @@ const insertIntoRouter = require('./routes/insertInto');
 const updateTableRouter = require('./routes/updateTable');
 const updateMinusRouter = require('./routes/updateMinus');
 const updatePriceRouter = require('./routes/updateprice');
+const deleteItemRouter = require('./routes/deleteItem');
 
 var app = express();
 
@@ -44,6 +45,7 @@ app.use('/updateTable', updateTableRouter);
 app.use('/updateMinus', updateMinusRouter);
 
 app.use('/updateprice', updatePriceRouter);
+app.use('/deleteItem', deleteItemRouter);
 
 
 

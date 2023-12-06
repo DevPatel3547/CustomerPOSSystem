@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Container, Table, Button, Modal, Form, Card } from 'react-bootstrap';
@@ -15,6 +15,29 @@ const Menu = ({ cart, setCart }) => {
   const [showCart, setShowCart] = useState(false); 
   const [multiplier, setMultiplier] = useState(1); // Start with no scaling
 
+  const [brownSugarDrinks, setBrownSugarDrinks] = useState([]);
+  const [brewTeaDrinks, setBrewTeaDrinks] = useState([]);
+  const [luluDrinks, setLuluDrinks] = useState([]);
+  const [snowVelvetDrinks, setSnowVelvetDrinks] = useState([]);
+  const [milkTeaDrinks, setmilkTeaDrinks] = useState([]);
+  const [naDrinks, setnaDrinks] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [sugarLevel, setSugarLevel] = useState("regular");
+  const [iceLevel, setIceLevel] = useState("regular ice");
+  const [isEditing, setIsEditing] = useState(false);
+  const [editingItemId, setEditingItemId] = useState(null);
+  
+  const drinkRefs = useRef({});
+
+  const scrollToItem = () => {
+    const foundKey = Object.keys(drinkRefs.current).find(name => 
+      name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    if (foundKey && drinkRefs.current[foundKey]) {
+      drinkRefs.current[foundKey].scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
 
   useEffect(() => {
     // Update the CSS variable when the multiplier changes
@@ -27,6 +50,7 @@ const Menu = ({ cart, setCart }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        let brownSugarDrinks = [], brewTeaDrinks = [], luluDrinks = [], snowVelvetDrinks = [], milkTeaDrinks = [], naDrinks = [];
         const response = await axios.get('https://project-3-team910-10b-backend.onrender.com/gettable/menu');
         const drinks = response.data.filter(item => item.type === 'Drink');
         const toppings = response.data.filter(item => item.type === 'Topping');
@@ -38,12 +62,40 @@ const Menu = ({ cart, setCart }) => {
           initialQuantities[drink.name_of_item] = 0;
           initialToppings[drink.name_of_item] = '';
           drink.ingredients = drink.ingredients;
+          const ingredients = drink.ingredients.toLowerCase();
+          if (ingredients.includes("brown sugar")) {
+            brownSugarDrinks.push(drink);
+          } else if (ingredients.includes("brew tea")) {
+            brewTeaDrinks.push(drink);
+          } else if (ingredients.includes("lulu")) {
+            luluDrinks.push(drink);
+          } else if (ingredients.includes("snow velvet")) {
+            snowVelvetDrinks.push(drink);
+          } else if (ingredients.includes("milk tea")) {
+            milkTeaDrinks.push(drink);
+          } else {
+            naDrinks.push(drink);
+          }
+          
         });
+        setBrownSugarDrinks(brownSugarDrinks);
+        setBrewTeaDrinks(brewTeaDrinks);
+        setLuluDrinks(luluDrinks);
+        setSnowVelvetDrinks(snowVelvetDrinks);
+        setmilkTeaDrinks(milkTeaDrinks);
+        setnaDrinks(naDrinks);
+       
+        
         setQuantities(initialQuantities);
         setSelectedToppings(initialToppings);
+        // ... existing code to fetch data ...
+    // Group drinks based on ingredients
+    // let brownSugarDrinks = [], brewTeaDrinks = [], luluDrinks = [], snowVelvetDrinks = [], milkTeaDrinks = [], naDrinks = [];
       } catch (error) {
         console.error('Error fetching data: ', error);
       }
+      
+      console.log(brownSugarDrinks);
     };
 
     fetchData();
@@ -111,24 +163,61 @@ const Menu = ({ cart, setCart }) => {
         id: itemId,
         name: drinkName,
         topping: topping,
+        sugarLevel: sugarLevel,
+        iceLevel: iceLevel,
         quantity: newQuantity,
         cost: menuItems.find(item => item.name_of_item === drinkName).cost_of_item,
         ingredients: menuItems.find(item => item.name_of_item === drinkName).ingredients
       };
       setCart([...cart, newItem]);
+      setSugarLevel("regular");
+      setIceLevel("regular ice");
     }
   };
   
           
   const handleToppingDone = () => {
-    if (!selectedToppings[selectedDrink] || selectedToppings[selectedDrink].length === 0) {
-      alert('Please select at least one topping.');
-      return;
+    if (isEditing) {
+        // Handle updating an existing item
+        const updatedCart = cart.map(item => {
+            if (item.id === editingItemId) {
+                return {
+                    ...item,
+                    topping: selectedToppings[selectedDrink].join(', '),
+                    sugarLevel: sugarLevel,
+                    iceLevel: iceLevel
+                };
+            }
+            return item;
+        });
+
+        setCart(updatedCart);
+        setShowCart(true);
+    } else {
+        // Handle adding a new item
+        addToCart();
     }
+
+    // Reset and close modal
+    resetSelections();
     setShowToppingsModal(false);
-    addToCart();
+    setIsEditing(false); // Reset the editing state
+};
+
+const handleCloseCart = () => {
+  if (!isEditing) {
+      setShowCart(false);
+  }
+};
+
+const resetSelections = () => {
     setSelectedDrink(null);
-  };
+    setSelectedToppings({});
+    setSugarLevel('regular');
+    setIceLevel('regular ice');
+    setIsEditing(false);
+    setEditingItemId(null);
+};
   
 
   const addToCart = () => {
@@ -185,6 +274,104 @@ const Menu = ({ cart, setCart }) => {
     setCart(updatedCart);
   };
 
+  const handleEditDone = () => {
+    // Update the item in the cart
+    const updatedCart = cart.map(item => {
+        if (item.id === `${selectedDrink}-${selectedToppings[selectedDrink].join(', ')}`) {
+            return {
+                ...item,
+                topping: selectedToppings[selectedDrink].join(', '),
+                sugarLevel: sugarLevel,
+                iceLevel: iceLevel
+            };
+        }
+        return item;
+    });
+
+    setCart(updatedCart);
+    setShowToppingsModal(true);
+    // Reset selections
+    setSelectedDrink(null);
+    setSelectedToppings({});
+    setSugarLevel('regular');
+    setIceLevel('regular ice');
+};
+const handleEditClick = (itemId) => {
+  const itemToEdit = cart.find(item => item.id === itemId);
+  if (itemToEdit) {
+      setSelectedDrink(itemToEdit.name);
+      setSelectedToppings({ [itemToEdit.name]: itemToEdit.topping.split(', ') });
+      setSugarLevel(itemToEdit.sugarLevel);
+      setIceLevel(itemToEdit.iceLevel);
+      setIsEditing(true);
+      setEditingItemId(itemId);
+      setShowToppingsModal(true);
+      setShowCart(false);
+  }
+};
+const drinkImageMap = {
+  "Snow Velvet Assam Black Tea": "Snow Velvet Assam Black Tea.avif",
+  "Snow Velvet Cream Cold Brew": "Snow Velvet Cream Cold Brew.png",
+  "Snow Velvet Grape LuLu": "Snow Velvet Grape Lulu.png",
+  "Snow Velvet Jasmine Green Tea": "Snow Velvet Jasmine Green Tea.avif",
+  "Snow Velvet Peach Oolong Tea": "Snow Velvet Peach Oolong Tea.avif",
+  "Snow Velvet Royal No 9": "Snow Velvet Royal No 9.avif",
+  "Strawberry Lulu": "Strawberry Lulu.avif",
+  "Taro Coconut Milk Tea": "Taro Coconut Milk Tea.jpg",
+  "Taro Milk Tea": "Taro Milk Tea.jpg",
+  "Taro Smoothie": "Taro Smoothie.jpg",
+  "The Alley Assam Black Tea": "The Alley Assam Black Tea.avif",
+  "The Alley Assam Milk Tea": "The Alley Assam Milk Tea.jpg",
+  "The Alley Trio": "The Alley Trio.jpg",
+  "Ube Creme Brulee Brown Sugar Deerioca Milk": "Ube Creme Brulee Brown Sugar Deerioca Milk.png",
+  "Ube Taro Brown Sugar Deerioca Milk": "Ube Taro Brown Sugar Deerioca Milk.avif",
+  "Yogurt Grape LuLu": "Yogurt Grape Lulu.png",
+  "Brown Sugar Cream Cold Brew": "Brown Sugar Cream Cold Brew.jpg",
+  "Brown Sugar Deerioca Creme Brulee Milk": "Brown Sugar Deerioca Creme Brulee Milk.jpg",
+  "Brown Sugar Deerioca Milk": "Brown Sugar Deerioca Milk.jpg",
+  "Cocoa Brown Sugar Deerioca Milk": "Cocoa Brown Sugar Deerioca Milk.jpg",
+  "Cocoa Cream Cold Brew": "Cocoa Cream Cold Brew.jpg",
+  "Deerioca Creme Brulee Cold Brew": "Deerioca Creme Brulee Cold Brew.avif",
+  "Iced Peach Oolong Grape LuLu": "Iced Peach Oolong Grape LuLu.webp",
+  "Jasmine Green Milk Tea": "Jasmine Green Milk Tea.jpg",
+  "Jasmine Green Tea": "Jasmine Green Tea.avif",
+  "Lychee Green Tea": "Lychee Green Tea.jpg",
+  "Lychee LuLu": "Lychee LuLu.jpg",
+  "Mango Frappe": "Mango Frappe.jpg",
+  "Mango Green Tea with Jelly Ball": "Mango Green Tea with Jelly Ball.jpg",
+  "Mango LuLu": "Mango Lulu.png",
+  "Matcha Brown Sugar Deerioca Milk": "Matcha Brown Sugar Deerioca Milk.avif",
+  "Matcha Purple Rice Yogurt": "Matcha Purple Rice Yogurt.webp",
+  "Milk Tea Cold Brew": "Milk Tea Cold Brew.jpg",
+  "Orange Lulu": "Orange Lulu.avif",
+  "Original Yogurt Purple Rice": "Original Yogurt Purple Rice.webp",
+  "Passion Fruit Green Tea": "Passion Fruit Green Tea.jpg",
+  "Peach Frappe": "Peach Frappe.jpg",
+  "Peach Oolong Purple Rice Yogurt": "Peach Oolong Purple Rice Yogurt.jpg",
+  "Peach Oolong Tea": "Peach Oolong Tea.avif",
+  "Royal No. 9 Black Tea": "Royal No. 9 Black Tea.avif",
+  "Royal No. 9 Milk Tea": "Royal No. 9 Milk Tea.jpg",
+  // Add other drink-image mappings here
+};
+
+const getDrinkImagePath = (drinkName) => {
+  // Replaces spaces with underscores and handles case sensitivity
+  const formattedName = drinkName.replace(/\s+/g, '_').replace(/\./g, '').toLowerCase();
+  
+  // Find the correct image format
+  const imageFormats = ['jpg', 'png', 'avif', 'webp'];
+  for (let format of imageFormats) {
+    const imageName = `${formattedName}.${format}`;
+    if (drinkImageMap[imageName]) {
+      return `/drinkImages/${drinkImageMap[imageName]}`;
+    }
+  }
+  // If no image is found, return a default image path
+  return '/drinkImages/default.png';
+};
+
+
+
   
   
 
@@ -201,12 +388,63 @@ const Menu = ({ cart, setCart }) => {
       <button onClick={decreaseFontSize}>- Font Size</button>
       </div>
 
+      <div className="search-bar">
+        <Form.Control
+          type="text"
+          placeholder="Search for a drink..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          onKeyPress={(e) => {
+            if (e.key === 'Enter') {
+              scrollToItem();
+            }
+          }}
+        />
+      </div>
+
       <h1 className="text-center mb-4">Drinks Menu</h1>
       
+      <h2 className='categoryTitle'>Brown Sugar Drinks</h2>
       <div className="drink-cards">
-        {menuItems.map((drink) => (
-          <Card key={drink.name_of_item} className="drink-card">
+    
+        {brownSugarDrinks.map((drink) => (
+          <Card key={drink.name_of_item} className="drink-card" ref={el => drinkRefs.current[drink.name_of_item] = el}>
+      
             <Card.Body>
+            <Card.Img 
+      variant="top" 
+      src={`/drinkImages/${drinkImageMap[drink.name_of_item] || 'default.png'}`}
+      alt={drink.name_of_item}
+      style={{ height: '200px', width: '100%', objectFit: 'cover' }} // Adjust height as needed
+    />
+              
+              <Card.Title>{drink.name_of_item}</Card.Title>
+              
+              <Card.Text>Price: ${drink.cost_of_item}</Card.Text>
+              {quantities[drink.name_of_item] > 0 ? (
+                <div className="quantity-control">
+                  {quantities[drink.name_of_item]}
+                  <Button className="qty-btn" onClick={() => handleQuantityChange(drink.name_of_item, true)}>+</Button>
+                </div>
+              ) : (
+                <Button className="add-btn" onClick={() => handleAddClick(drink.name_of_item)}>Add</Button>
+              )}
+            </Card.Body>
+          </Card>
+        ))}
+      </div>
+      <h2 className='categoryTitle'>Brew Tea Drinks</h2>
+      <div className="drink-cards">
+      
+        {brewTeaDrinks.map((drink) => (
+          <Card key={drink.name_of_item} className="drink-card" ref={el => drinkRefs.current[drink.name_of_item] = el}>
+            <Card.Body>
+            <Card.Img 
+      variant="top" 
+      src={`/drinkImages/${drinkImageMap[drink.name_of_item] || 'default.png'}`}
+      alt={drink.name_of_item}
+      style={{ height: '200px', width: '100%', objectFit: 'cover' }} // Adjust height as needed
+    />
               <Card.Title>{drink.name_of_item}</Card.Title>
               <Card.Text>Price: ${drink.cost_of_item}</Card.Text>
               {quantities[drink.name_of_item] > 0 ? (
@@ -221,6 +459,109 @@ const Menu = ({ cart, setCart }) => {
           </Card>
         ))}
       </div>
+      <h2 className='categoryTitle'>Lulu Drinks</h2>
+      <div className="drink-cards">
+      
+        {luluDrinks.map((drink) => (
+          <Card key={drink.name_of_item} className="drink-card" ref={el => drinkRefs.current[drink.name_of_item] = el}>
+            
+            <Card.Body>
+            <Card.Img 
+      variant="top" 
+      src={`/drinkImages/${drinkImageMap[drink.name_of_item] || 'default.png'}`}
+      alt={drink.name_of_item}
+      style={{ height: '200px', width: '100%', objectFit: 'cover' }} // Adjust height as needed
+    />
+              <Card.Title>{drink.name_of_item}</Card.Title>
+              <Card.Text>Price: ${drink.cost_of_item}</Card.Text>
+              {quantities[drink.name_of_item] > 0 ? (
+                <div className="quantity-control">
+                  {quantities[drink.name_of_item]}
+                  <Button className="qty-btn" onClick={() => handleQuantityChange(drink.name_of_item, true)}>+</Button>
+                </div>
+              ) : (
+                <Button className="add-btn" onClick={() => handleAddClick(drink.name_of_item)}>Add</Button>
+              )}
+            </Card.Body>
+          </Card>
+        ))}
+      </div>
+      <h2 className='categoryTitle'>Snow Velvet Drinks</h2>
+      <div className="drink-cards">
+        {snowVelvetDrinks.map((drink) => (
+          <Card key={drink.name_of_item} className="drink-card" ref={el => drinkRefs.current[drink.name_of_item] = el}>
+            <Card.Body>
+            <Card.Img 
+      variant="top" 
+      src={`/drinkImages/${drinkImageMap[drink.name_of_item] || 'default.png'}`}
+      alt={drink.name_of_item}
+      style={{ height: '200px', width: '100%', objectFit: 'cover' }} // Adjust height as needed
+    />
+              <Card.Title>{drink.name_of_item}</Card.Title>
+              <Card.Text>Price: ${drink.cost_of_item}</Card.Text>
+              {quantities[drink.name_of_item] > 0 ? (
+                <div className="quantity-control">
+                  {quantities[drink.name_of_item]}
+                  <Button className="qty-btn" onClick={() => handleQuantityChange(drink.name_of_item, true)}>+</Button>
+                </div>
+              ) : (
+                <Button className="add-btn" onClick={() => handleAddClick(drink.name_of_item)}>Add</Button>
+              )}
+            </Card.Body>
+          </Card>
+        ))}
+      </div>
+      
+      <h2 className='categoryTitle'>Milk Tea Drinks</h2>
+      <div className="drink-cards">
+        {milkTeaDrinks.map((drink) => (
+          <Card key={drink.name_of_item} className="drink-card" ref={el => drinkRefs.current[drink.name_of_item] = el}>
+            <Card.Body>
+            <Card.Img 
+      variant="top" 
+      src={`/drinkImages/${drinkImageMap[drink.name_of_item] || 'default.png'}`}
+      alt={drink.name_of_item}
+      style={{ height: '200px', width: '100%', objectFit: 'cover' }} // Adjust height as needed
+    />
+              <Card.Title>{drink.name_of_item}</Card.Title>
+              <Card.Text>Price: ${drink.cost_of_item}</Card.Text>
+              {quantities[drink.name_of_item] > 0 ? (
+                <div className="quantity-control">
+                  {quantities[drink.name_of_item]}
+                  <Button className="qty-btn" onClick={() => handleQuantityChange(drink.name_of_item, true)}>+</Button>
+                </div>
+              ) : (
+                <Button className="add-btn" onClick={() => handleAddClick(drink.name_of_item)}>Add</Button>
+              )}
+            </Card.Body>
+          </Card>
+        ))}
+      </div>
+      <h2 className='categoryTitle'>Other Drinks</h2>
+      <div className="drink-cards">
+        {naDrinks.map((drink) => (
+          <Card key={drink.name_of_item} className="drink-card"  ref={el => drinkRefs.current[drink.name_of_item] = el}>
+            <Card.Body>
+            <Card.Img 
+      variant="top" 
+      src={`/drinkImages/${drinkImageMap[drink.name_of_item] || 'default.png'}`}
+      alt={drink.name_of_item}
+      style={{ height: '200px', width: '100%', objectFit: 'cover' }} // Adjust height as needed
+    />
+              <Card.Title>{drink.name_of_item}</Card.Title>
+              <Card.Text>Price: ${drink.cost_of_item}</Card.Text>
+              {quantities[drink.name_of_item] > 0 ? (
+                <div className="quantity-control">
+                  {quantities[drink.name_of_item]}
+                  <Button className="qty-btn" onClick={() => handleQuantityChange(drink.name_of_item, true)}>+</Button>
+                </div>
+              ) : (
+                <Button className="add-btn" onClick={() => handleAddClick(drink.name_of_item)}>Add</Button>
+              )}
+            </Card.Body>
+          </Card>
+        ))}
+      </div> 
 
   
 
@@ -240,6 +581,24 @@ const Menu = ({ cart, setCart }) => {
               </div>
             ))}
           </div>
+          <Form.Group>
+    <Form.Label>Sugar Level</Form.Label>
+    <Form.Control as="select" value={sugarLevel} onChange={(e) => setSugarLevel(e.target.value)}>
+      <option value="0%">0%</option>
+      <option value="50%">50%</option>
+      <option value="regular">Regular</option>
+      <option value="120%">120%</option>
+    </Form.Control>
+  </Form.Group>
+
+  <Form.Group>
+    <Form.Label>Ice Level</Form.Label>
+    <Form.Control as="select" value={iceLevel} onChange={(e) => setIceLevel(e.target.value)}>
+      <option value="no ice">No Ice</option>
+      <option value="lite ice">Lite Ice</option>
+      <option value="regular ice">Regular Ice</option>
+    </Form.Control>
+  </Form.Group>
           <div className="modal-actions">
             <Button variant="success" onClick={handleToppingDone}>Done</Button>
             <Button variant="secondary" onClick={() => setShowToppingsModal(false)}>Cancel</Button>
@@ -259,14 +618,19 @@ const Menu = ({ cart, setCart }) => {
                   <th>Drink</th>
                   <th>Topping</th>
                   <th>Quantity</th>
+                  <th>Sugar Level</th>
+                  <th>Ice Level</th>
                   <th>Price</th>
                 </tr>
               </thead>
               <tbody>
                 {cart.map((item) => (
                   <tr key={item.id}>
+                     <Button variant="outline-secondary" onClick={() => handleEditClick(item.id)}>Edit</Button>
                     <td>{item.name}</td>
                     <td>{item.topping}</td>
+                    <td>{item.sugarLevel}</td> 
+                    <td>{item.iceLevel}</td>   
                     <td>
                       <button onClick={() => handleQuantityUpdate(item.id, false)}>-</button>
                       {item.quantity}
