@@ -7,12 +7,14 @@ To run the backend open the api folder and type "npm start" in terminal
 Look at different routes inside backend by seeing the app.js file and there is a section of code with comments around it
     Example: "app.use('/testAPI', testAPIRouter);" means that localhost:9000/testAPI exists
 
-    Run npm install react-modal
+    Run the following in the "my-react-app" folder:
+    npm install react-modal
     npm install react-tsparticles
     npm install axiom
     npm install google-maps-react
     npm i @react-oauth/google // this is for the Oauth Login
     npm install jwt-decode // for emails to be decoded
+    npm install react-icons
 
 Things to download for backend (download in the api folder):
     BEFORE DOING THIS JUST TRY TO RUN BECAUSE THEY SHOULD ALREADY BE DOWNLOADED IN THE NODE_MODULES FOLDER
