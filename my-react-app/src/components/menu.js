@@ -102,6 +102,8 @@ const Menu = ({ cart, setCart }) => {
   }, []);
 
   const handleAddClick = (drinkName) => {
+    const uniqueId = `${drinkName}-${Date.now()}`; // Using timestamp for uniqueness
+    setSelectedDrink(uniqueId);
     setSelectedDrink(drinkName);
   
     // Reset selected toppings for the new item
@@ -120,12 +122,22 @@ const Menu = ({ cart, setCart }) => {
     }));
   };
 
-  const handleToppingChange = (drinkName, topping) => {
-    setSelectedToppings(prevToppings => ({
-      ...prevToppings,
-      [drinkName]: prevToppings[drinkName] ? [...prevToppings[drinkName], topping] : [topping]
-    }));
-  };
+  const handleToppingChange = (drinkId, topping) => {
+    setSelectedToppings(prevToppings => {
+        const currentToppings = prevToppings[drinkId] || [];
+        if (currentToppings.includes(topping)) {
+            return {
+                ...prevToppings,
+                [drinkId]: currentToppings.filter(t => t !== topping)
+            };
+        } else {
+            return {
+                ...prevToppings,
+                [drinkId]: [...currentToppings, topping]
+            };
+        }
+    });
+};
   const handleQuantityChange = (drinkName, increment) => {
     if (increment) {
       // Set the selected drink and show toppings modal to add a new item
@@ -570,16 +582,17 @@ const getDrinkImagePath = (drinkName) => {
         <div className="modal-content">
           <h3>Select Toppings for {selectedDrink}</h3>
           <div className="topping-options">
-            {toppings.map((topping) => (
-              <div key={topping.name_of_item} className="topping-item">
-                <input 
-                  type="checkbox" 
-                  id={`topping-${topping.name_of_item}`} 
-                  onChange={() => handleToppingChange(selectedDrink, topping.name_of_item)} 
-                />
-                <label htmlFor={`topping-${topping.name_of_item}`}>{topping.name_of_item}</label>
-              </div>
-            ))}
+          {toppings.map((topping) => (
+    <div key={topping.name_of_item} className="topping-item">
+        <input 
+            type="checkbox" 
+            id={`topping-${topping.name_of_item}`} 
+            checked={selectedToppings[selectedDrink]?.includes(topping.name_of_item)}
+            onChange={() => handleToppingChange(selectedDrink, topping.name_of_item)} 
+        />
+        <label htmlFor={`topping-${topping.name_of_item}`}>{topping.name_of_item}</label>
+    </div>
+))}
           </div>
           <Form.Group>
     <Form.Label>Sugar Level</Form.Label>
@@ -615,11 +628,12 @@ const getDrinkImagePath = (drinkName) => {
             <table>
               <thead>
                 <tr>
+                  <th></th>
                   <th>Drink</th>
                   <th>Topping</th>
-                  <th>Quantity</th>
                   <th>Sugar Level</th>
                   <th>Ice Level</th>
+                  <th>Quantity</th>
                   <th>Price</th>
                 </tr>
               </thead>
