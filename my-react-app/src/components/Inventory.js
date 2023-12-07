@@ -154,7 +154,7 @@ const updateCartQuantity = (itemName, newQuantity) => {
   useEffect(() => {
     const fetchInventory = async () => {
       try {
-        const response = await axios.get('http://https://project-3-team910-10b-backend.onrender.com/getTable/inventory');
+        const response = await axios.get('https://project-3-team910-10b-backend.onrender.com/getTable/inventory');
         const items = response.data;
         setInventoryItems(items);
 

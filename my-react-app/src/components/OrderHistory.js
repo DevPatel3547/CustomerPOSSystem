@@ -8,7 +8,7 @@ const OrderHistory = () => {
     useEffect(() => {
         const fetchOrderHistory = async () => {
             try {
-                const response = await axios.get('https://project-3-team910-10b-backend.onrender.com/orderhistory');
+                const response = await axios.get('https://project-3-team910-10b-backend.onrender.com/gettable/orderhistory');
                 setOrderHistory(response.data); // Assuming the response data is an array of order history objects
             } catch (error) {
                 console.error('Error fetching order history:', error);
