@@ -70,9 +70,9 @@ const EditMenu = () => {
     setSelectedFile(e.target.files[0]);
   };
   
-  const goBack = () => {
-    window.history.back();
-  };
+  // const goBack = () => {
+  //   window.history.back();
+  // };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -276,9 +276,9 @@ fetchIngredients();
   return (
     <Container className="edit-menu-container">
       <h1 className="text-center">Manage Menu</h1>
-      <div className="backButton">
+      {/* <div className="backButton">
           <Button variant="secondary" onClick={goBack}>Back</Button>
-      </div>
+      </div> */}
       <Button variant="success" className="add-item-button" onClick={handleAddNewItem}>Add New Item</Button>
       <div className="menu-items">
       {menuItems.map((item) => (
