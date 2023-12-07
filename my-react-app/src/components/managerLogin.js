@@ -25,7 +25,7 @@ const Login = () => {
             const userEmail = decodedResponse.email;
     
             if (allowedEmails.includes(userEmail)) {
-                navigate('/cashier');
+                navigate('/manager');
             } else {
                 alert('Access Denied: Please enter a valid email');
                 
