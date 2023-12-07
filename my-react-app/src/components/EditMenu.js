@@ -278,13 +278,14 @@ fetchIngredients();
       <div className="menu-items">
       {menuItems.map((item) => (
         <Card key={item.name_of_item} className="menu-item-card">
+          
+          <Card.Body>
           <Card.Img 
             variant="top" 
-            src={`/drinkImages/path/to/images/${drinkImageMap[item.name_of_item] || 'default.png'}`}
+            src={`/drinkImages/${drinkImageMap[item.name_of_item] || 'default.png'}`}
             alt={item.name_of_item}
             style={{ height: '200px', width: '100%', objectFit: 'cover' }}
           />
-          <Card.Body>
             <Card.Title>{item.name_of_item}</Card.Title>
             <Card.Text>Price: ${item.cost_of_item}</Card.Text>
               <Button variant="primary" onClick={() => handleEdit(item)}>Edit</Button>
