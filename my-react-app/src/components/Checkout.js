@@ -21,7 +21,7 @@ const Checkout = ({ cart }) => {
             identify: 'name',
             identifyKey: ingredientOrTopping
           };
-          return axios.post('http://localhost:9000/updateMinus', data);
+          return axios.post('https://project-3-team910-10b-backend.onrender.com/updateMinus', data);
         });
       });
 

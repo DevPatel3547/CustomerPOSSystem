@@ -1,25 +1,51 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import './OrderHistory.css';
 
 const OrderHistory = () => {
-    // Placeholder for future dynamic content
-    const trends = [
-        { name: "What Sales Together", description: "Popular items sold together." },
-        { name: "Sales Report", description: "Sales by menu item." },
-        { name: "Excess Report", description: "Items with less than 10% sales of inventory." }
-    ];
+    const [orderHistory, setOrderHistory] = useState([]);
+
+    useEffect(() => {
+        const fetchOrderHistory = async () => {
+            try {
+                const response = await axios.get('https://project-3-team910-10b-backend.onrender.com/orderhistory');
+                setOrderHistory(response.data); // Assuming the response data is an array of order history objects
+            } catch (error) {
+                console.error('Error fetching order history:', error);
+            }
+        };
+
+        fetchOrderHistory();
+    }, []);
 
     return (
         <div className="order-history-container">
             <h1>Order History and Trends</h1>
+            <table className="order-history-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Flavor</th>
+                        <th>Toppings</th>
+                        <th>Item Price</th>
+                        <th>Total Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {orderHistory.map((order, index) => (
+                        <tr key={index}>
+                            <td>{order.date}</td>
+                            <td>{order.flavor}</td>
+                            <td>{order.toppings}</td>
+                            <td>{order.itemprice}</td>
+                            <td>{order.totalprice}</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+            {/* Placeholder for future dynamic content */}
             <div className="trends-container">
-                {trends.map((trend, index) => (
-                    <div key={index} className="trend-card">
-                        <h2>{trend.name}</h2>
-                        <p>{trend.description}</p>
-                        {/* Placeholder for future dynamic content */}
-                    </div>
-                ))}
+                {/* ... */}
             </div>
         </div>
     );

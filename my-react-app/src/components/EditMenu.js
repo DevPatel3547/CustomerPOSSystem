@@ -75,7 +75,7 @@ const EditMenu = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:9000/gettable/menu');
+        const response = await axios.get('https://project-3-team910-10b-backend.onrender.com/gettable/menu');
         setMenuItems(response.data);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -85,7 +85,7 @@ const EditMenu = () => {
 
     const fetchInventoryData = async () => {
       try {
-          const response = await axios.get('http://localhost:9000/gettable/inventory');
+          const response = await axios.get('https://project-3-team910-10b-backend.onrender.com/gettable/inventory');
           setIngredients(response.data.map(item => ({ label: item.name_of_item, value: item.name_of_item })));
       } catch (error) {
           console.error('Error fetching inventory data:', error);
@@ -94,7 +94,7 @@ const EditMenu = () => {
   fetchInventoryData();
   const fetchIngredients = async () => {
     try {
-      const response = await axios.get('http://localhost:9000/gettable/menu');
+      const response = await axios.get('https://project-3-team910-10b-backend.onrender.com/gettable/menu');
       const ingredients = response.data
         .filter(item => item.type === 'Ingredient')
         .map(item => ({ label: item.name_of_item, value: item.name_of_item }));
@@ -123,7 +123,7 @@ fetchIngredients();
 
   const saveChanges = async () => {
     try {
-      await axios.post('http://localhost:9000/updateTable', {
+      await axios.post('https://project-3-team910-10b-backend.onrender.com/updateTable', {
         table: 'menu',
         name_of_item: newName, 
         cost_of_item: newPrice,
@@ -179,7 +179,7 @@ fetchIngredients();
       };
   
       // Send the DELETE request to the backend
-      const response = await axios.post('http://localhost:9000/deleteItem', dataToSend);
+      const response = await axios.post('https://project-3-team910-10b-backend.onrender.com/deleteItem', dataToSend);
   
       if (response.status === 200) {
         // Remove the item from the local state
@@ -234,7 +234,7 @@ fetchIngredients();
         };
     
         // Send POST request to add the new menu item
-        const menuResponse = await axios.post('http://localhost:9000/insertInto', menuItemData);
+        const menuResponse = await axios.post('https://project-3-team910-10b-backend.onrender.com/insertInto', menuItemData);
         if (menuResponse.status === 200) {
           console.log('Menu item added successfully:', menuResponse.data);
         } else {
@@ -247,7 +247,7 @@ fetchIngredients();
           formData.append('image', selectedImage);
     
           // Send POST request to upload the image
-          const imageResponse = await axios.post('http://localhost:9000/upload-image', formData, {
+          const imageResponse = await axios.post('https://project-3-team910-10b-backend.onrender.com/upload-image', formData, {
             headers: {
               'Content-Type': 'multipart/form-data'
             }
@@ -278,13 +278,14 @@ fetchIngredients();
       <div className="menu-items">
       {menuItems.map((item) => (
         <Card key={item.name_of_item} className="menu-item-card">
+          
+          <Card.Body>
           <Card.Img 
             variant="top" 
-            src={`/drinkImages/path/to/images/${drinkImageMap[item.name_of_item] || 'default.png'}`}
+            src={`/drinkImages/${drinkImageMap[item.name_of_item] || 'default.png'}`}
             alt={item.name_of_item}
             style={{ height: '200px', width: '100%', objectFit: 'cover' }}
           />
-          <Card.Body>
             <Card.Title>{item.name_of_item}</Card.Title>
             <Card.Text>Price: ${item.cost_of_item}</Card.Text>
               <Button variant="primary" onClick={() => handleEdit(item)}>Edit</Button>

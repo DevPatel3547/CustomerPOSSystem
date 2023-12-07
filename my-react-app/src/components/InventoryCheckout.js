@@ -21,7 +21,7 @@ const InventoryCheckout = () => {
 
   // Send each item update request separately
   dataToSend.forEach(data => {
-    axios.post('http://localhost:9000/updateTable', data)
+    axios.post('https://project-3-team910-10b-backend.onrender.com/updateTable', data)
       .then(response => {
         console.log('Checkout successful for item:', response);
         // Handle successful checkout here
