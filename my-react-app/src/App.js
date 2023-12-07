@@ -11,6 +11,7 @@ import MenuBoard from './components/menuboard';
 import Manager from './components/Manager';
 import OrderHistory from './components/OrderHistory';
 import EditMenu from './components/EditMenu';
+import ManagerLogin from './components/managerLogin';
 import Inventory from './components/Inventory';
 import InventoryCheckout from './components/InventoryCheckout';
 
@@ -31,6 +32,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/cashier" element={<Cashier cart={cart} setCart={setCart}/>} />
           <Route path="/menu-board" element={<MenuBoard cart={cart} setCart={setCart} />} />
+          <Route path="/managerLogin" element={<ManagerLogin />} />
           <Route path="/manager" element={<Manager />} />
           <Route path="/OrderHistory" element={<OrderHistory />} />
           <Route path="/EditMenu" element={<EditMenu />} />

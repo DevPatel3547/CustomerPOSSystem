@@ -29,15 +29,16 @@
   flex-wrap: wrap;
   gap: 20px;
   justify-content: center;
-  border: 7px solid #f8f8f2; /* Adding a border instead of background */
+  border: 7px solid #fff7f7; /* Adding a border instead of background */
   border-radius: 10px;
   padding: 40px;
+  background-image: url('swirl-designs-png-1.png');
 }
 
 .drink-card {
   width: 250px;
   background-color: #ffffff; /* White background for cards */
-  border: none; /* Removing default border */
+  border: 3px solid black;
   border-radius: 10px;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -52,6 +53,7 @@
 .card-body {
   text-align: center;
   font-size:calc(16px * var(--font-size-multiplier));
+  
 }
 
 .add-btn, .qty-btn {
@@ -259,7 +261,7 @@ h1.text-center {
   color: rgb(0, 0, 0);
   text-align: center;
   font-size: 56px;;
-  font-family: 'Comic Sans MS', cursive, sans-serif;
+  font-family: 'Courier New', Courier, monospace;
   font-weight: bold;
   padding-top: 20px;
 }
