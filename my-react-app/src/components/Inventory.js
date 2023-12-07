@@ -17,6 +17,10 @@ const Inventory = () => {
   const [restockValue, setRestockValue] = useState('');
   const [isCustomCartModalVisible, setIsCustomCartModalVisible] = useState(false);
 
+  const goBack = () => {
+    window.history.back();
+  };
+
   const navigate = useNavigate(); // Hook for navigation
 
   // ... (other functions remain unchanged)
@@ -178,7 +182,9 @@ const updateCartQuantity = (itemName, newQuantity) => {
       <FaShoppingCart onClick={toggleCustomCartModal} />
     </div>
       <h1 className="text-center">Inventory Management</h1>
-      
+      <div className="backButton">
+          <Button variant="secondary" onClick={goBack}>Back</Button>
+      </div>
       <h2>Needs Restock</h2>
       <div className="inventory-items">
       {needsRestock.map((item) => (

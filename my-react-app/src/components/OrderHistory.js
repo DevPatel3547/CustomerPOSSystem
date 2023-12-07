@@ -1,9 +1,16 @@
 import React, { useState, useEffect } from 'react';
+//import { useNavigate } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
 import axios from 'axios';
 import './OrderHistory.css';
 
 const OrderHistory = () => {
+    //let navigate = useNavigate();
     const [orderHistory, setOrderHistory] = useState([]);
+
+    const goBack = () => {
+        window.history.back();
+    };
 
     useEffect(() => {
         const fetchOrderHistory = async () => {
@@ -21,6 +28,9 @@ const OrderHistory = () => {
     return (
         <div className="order-history-container">
             <h1>Order History and Trends</h1>
+            <div className="backButton">
+                <Button variant="secondary" onClick={goBack}>Back</Button>
+            </div>
             <table className="order-history-table">
                 <thead>
                     <tr>
