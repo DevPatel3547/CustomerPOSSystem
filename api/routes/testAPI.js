@@ -1,34 +1,12 @@
-var express = require('express');
-const { Pool } = require('pg')
-const dotenv = require('dotenv').config();
-var router = express.Router();
+const express = require('express');
+const { sequelize } = require('../db');
+const handle = require('./handle');
 
-const pool = new Pool({
-  user: process.env.PSQL_USER,
-  host: process.env.PSQL_HOST,
-  database: process.env.PSQL_DATABASE,
-  password: process.env.PSQL_PASSWORD,
-  port: process.env.PSQL_PORT,
-  ssl: {rejectUnauthorized: false}
-});
+const router = express.Router();
 
-process.on('SIGINT', function() {
-  pool.end();
-  console.log('\ntestAPI pool successfully shut down');
-  process.exit(0);
-});
-
-router.get('/', function(req, res, next) {
-    teammembers = []
-    pool
-        .query('SELECT * FROM teammembers;')
-        .then(query_res => {
-            for (let i = 0; i < query_res.rowCount; i++) {
-                teammembers.push(query_res.rows[i]);
-            }
-            // console.log(teammembers);
-            res.send(teammembers);
-        });
-});
+router.get('/', handle(async (req, res) => {
+  const teammembers = await sequelize.getQueryInterface().select(null, 'teammembers', { raw: true });
+  res.send(teammembers);
+}));
 
 module.exports = router;

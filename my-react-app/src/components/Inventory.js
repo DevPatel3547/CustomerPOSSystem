@@ -4,6 +4,7 @@ import { FaPlus, FaMinus, FaShoppingCart } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import './Inventory.css';
 import { Container, Card, Button, Modal, Form} from 'react-bootstrap';
+import { API_BASE } from '../config';
 
 const Inventory = () => {
   const [inventoryItems, setInventoryItems] = useState([]);
@@ -158,7 +159,7 @@ const updateCartQuantity = (itemName, newQuantity) => {
   useEffect(() => {
     const fetchInventory = async () => {
       try {
-        const response = await axios.get('https://project-3-team910-10b-backend.onrender.com/getTable/inventory');
+        const response = await axios.get(`${API_BASE}/getTable/inventory`);
         const items = response.data;
         setInventoryItems(items);
 

@@ -3,8 +3,12 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Container, Table, Button, Modal, Form, Card } from 'react-bootstrap';
 import './menu.css';
+import { API_BASE } from '../config';
+import { useSelector } from 'react-redux';
+import { selectCartTotal } from '../store/cartSlice';
 
 const Menu = ({ cart, setCart }) => {
+  const cartTotal = useSelector(selectCartTotal);
   let navigate = useNavigate();
   const [menuItems, setMenuItems] = useState([]);
   const [selectedDrink, setSelectedDrink] = useState(null);
@@ -51,7 +55,7 @@ const Menu = ({ cart, setCart }) => {
     const fetchData = async () => {
       try {
         let brownSugarDrinks = [], brewTeaDrinks = [], luluDrinks = [], snowVelvetDrinks = [], milkTeaDrinks = [], naDrinks = [];
-        const response = await axios.get('https://project-3-team910-10b-backend.onrender.com/gettable/menu');
+        const response = await axios.get(`${API_BASE}/gettable/menu`);
         const drinks = response.data.filter(item => item.type === 'Drink');
         const toppings = response.data.filter(item => item.type === 'Topping');
         setMenuItems(drinks);
@@ -657,7 +661,7 @@ const getDrinkImagePath = (drinkName) => {
               <tfoot>
                 <tr>
                   <td colSpan="3">Total</td>
-                  <td>${cart.reduce((total, item) => total + item.cost * item.quantity, 0).toFixed(2)}</td>
+                  <td>${cartTotal.toFixed(2)}</td>
                 </tr>
               </tfoot>
             </table>

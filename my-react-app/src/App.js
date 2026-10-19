@@ -1,5 +1,7 @@
 // App.js
-import React, { useState } from 'react';
+import React, { useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectCart, setCart as setCartAction } from './store/cartSlice';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import HomePage from './components/HomePage';
 import CustomerP from './components/customer';
@@ -17,7 +19,13 @@ import InventoryCheckout from './components/InventoryCheckout';
 
 
 function App() {
-  const [cart, setCart] = useState([]); // Initialize the cart state here
+  // The order lives in the Redux store (store/cartSlice.js); components get it as props.
+  const cart = useSelector(selectCart);
+  const dispatch = useDispatch();
+  const setCart = useCallback(
+    (next) => dispatch(setCartAction(typeof next === 'function' ? next(cart) : next)),
+    [dispatch, cart],
+  );
 
   return (
     

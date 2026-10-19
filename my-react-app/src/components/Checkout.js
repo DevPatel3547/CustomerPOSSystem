@@ -1,9 +1,12 @@
 import React from 'react';
 import axios from 'axios';
 import './Checkout.css';
+import { API_BASE } from '../config';
+import { useSelector } from 'react-redux';
+import { selectCartTotal } from '../store/cartSlice';
 
 const Checkout = ({ cart }) => {
-  const totalPrice = cart.reduce((total, item) => total + item.quantity * item.cost, 0);
+  const totalPrice = useSelector(selectCartTotal);
 
   const handleCheckout = async () => {
     try {
@@ -21,7 +24,7 @@ const Checkout = ({ cart }) => {
             identify: 'name',
             identifyKey: ingredientOrTopping
           };
-          return axios.post('https://project-3-team910-10b-backend.onrender.com/updateMinus', data);
+          return axios.post(`${API_BASE}/updateMinus`, data);
         });
       });
 

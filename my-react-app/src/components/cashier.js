@@ -7,6 +7,7 @@ import axios from 'axios';
 import ScaleText from 'react-scale-text';
 //import { cart,setCart } from './menu';
 import {handleQuantityChange} from './menu.js';
+import { API_BASE } from '../config';
 
 
 
@@ -25,7 +26,7 @@ const Remove = () => {
 useEffect(() => {
   const fetchData = async () => {
     try {
-      const response = await axios.get('https://project-3-team910-10b-backend.onrender.com/gettable/menu');
+      const response = await axios.get(`${API_BASE}/gettable/menu`);
       const drinks = response.data.filter(item => item.type === 'Drink');
       setMenuItems(drinks);
     } catch (error) {

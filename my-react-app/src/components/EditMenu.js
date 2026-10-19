@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Container, Card, Button, Modal, Form } from 'react-bootstrap';
 import './EditMenu.css';
+import { API_BASE } from '../config';
 
 const EditMenu = () => {
     const [menuItems, setMenuItems] = useState([]);
@@ -77,7 +78,7 @@ const EditMenu = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('https://project-3-team910-10b-backend.onrender.com/gettable/menu');
+        const response = await axios.get(`${API_BASE}/gettable/menu`);
         setMenuItems(response.data);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -87,7 +88,7 @@ const EditMenu = () => {
 
     const fetchInventoryData = async () => {
       try {
-          const response = await axios.get('https://project-3-team910-10b-backend.onrender.com/gettable/inventory');
+          const response = await axios.get(`${API_BASE}/gettable/inventory`);
           setIngredients(response.data.map(item => ({ label: item.name_of_item, value: item.name_of_item })));
       } catch (error) {
           console.error('Error fetching inventory data:', error);
@@ -96,7 +97,7 @@ const EditMenu = () => {
   fetchInventoryData();
   const fetchIngredients = async () => {
     try {
-      const response = await axios.get('https://project-3-team910-10b-backend.onrender.com/gettable/menu');
+      const response = await axios.get(`${API_BASE}/gettable/menu`);
       const ingredients = response.data
         .filter(item => item.type === 'Ingredient')
         .map(item => ({ label: item.name_of_item, value: item.name_of_item }));
@@ -125,7 +126,7 @@ fetchIngredients();
 
   const saveChanges = async () => {
     try {
-      await axios.post('https://project-3-team910-10b-backend.onrender.com/updateTable', {
+      await axios.post(`${API_BASE}/updateTable`, {
         table: 'menu',
         name_of_item: newName, 
         cost_of_item: newPrice,
@@ -181,7 +182,7 @@ fetchIngredients();
       };
   
       // Send the DELETE request to the backend
-      const response = await axios.post('https://project-3-team910-10b-backend.onrender.com/deleteItem', dataToSend);
+      const response = await axios.post(`${API_BASE}/deleteItem`, dataToSend);
   
       if (response.status === 200) {
         // Remove the item from the local state
@@ -236,7 +237,7 @@ fetchIngredients();
         };
     
         // Send POST request to add the new menu item
-        const menuResponse = await axios.post('https://project-3-team910-10b-backend.onrender.com/insertInto', menuItemData);
+        const menuResponse = await axios.post(`${API_BASE}/insertInto`, menuItemData);
         if (menuResponse.status === 200) {
           console.log('Menu item added successfully:', menuResponse.data);
         } else {
@@ -249,7 +250,7 @@ fetchIngredients();
           formData.append('image', selectedImage);
     
           // Send POST request to upload the image
-          const imageResponse = await axios.post('https://project-3-team910-10b-backend.onrender.com/upload-image', formData, {
+          const imageResponse = await axios.post(`${API_BASE}/upload-image`, formData, {
             headers: {
               'Content-Type': 'multipart/form-data'
             }

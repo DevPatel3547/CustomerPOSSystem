@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Container, Card, Button } from 'react-bootstrap';
 import './menuboard.css'; // Ensure you have this CSS file for styling
+import { API_BASE } from '../config';
 
 const MenuBoard = () => {
   let navigate = useNavigate();
@@ -25,7 +26,7 @@ const MenuBoard = () => {
         ///////////////////
         let brownSugarDrinks = [], brewTeaDrinks = [], luluDrinks = [], snowVelvetDrinks = [], milkTeaDrinks = [], naDrinks = [];
         ///////////////////
-        const response = await axios.get('https://project-3-team910-10b-backend.onrender.com/gettable/menu');
+        const response = await axios.get(`${API_BASE}/gettable/menu`);
         const drinks = response.data.filter(item => item.type === 'Drink');
         const toppingItems = response.data.filter(item => item.type === 'Topping');
         setMenuItems(drinks);

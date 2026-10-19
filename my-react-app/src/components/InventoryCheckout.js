@@ -2,6 +2,7 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 import './InventoryCheckout.css';
 import axios from 'axios';
+import { API_BASE } from '../config';
 
 
 const InventoryCheckout = () => {
@@ -21,7 +22,7 @@ const InventoryCheckout = () => {
 
   // Send each item update request separately
   dataToSend.forEach(data => {
-    axios.post('https://project-3-team910-10b-backend.onrender.com/updateTable', data)
+    axios.post(`${API_BASE}/updateTable`, data)
       .then(response => {
         console.log('Checkout successful for item:', response);
         // Handle successful checkout here
